@@ -6,7 +6,7 @@ NFT development POC for proof of skill set - Homage to Robotech
 
 | TODO | IN PROGRESS | DONE | DOCS / RETRO |
 |-|-|-|-|
-|Started: 04/09/2023|TASK - review code sample sources and task out contract / test|_________|_________|
+|Started: 04/09/23|DONE: 4/23/23|TASK - review code sample sources and task out contract / test|_________|
 |TASK - get IPFS desktop|_________|_________|_________|
 |TASK - Get familiar with Open Zepplin|_________|_________|_________|
 |Source Artwork|_________|_________|_________|
