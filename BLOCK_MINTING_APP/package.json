@@ -1,5 +1,8 @@
 {
   "name": "veri-mecha-mint-blockchain",
+  "scripts": {
+    "start:hardhat-node": "npx hardhat node"
+  },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
     "hardhat": "^2.13.1",
