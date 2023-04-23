@@ -1,5 +1,8 @@
-// Stub out basic functionality requiremetns
+import { testerUtil } from "block-project-utils";
 
+const apple = testerUtil
+
+console.log(`>> CONFIRM TESTER:`, apple);
 
 // TODO [] - LIST / IMPORT
 // - DEPS
