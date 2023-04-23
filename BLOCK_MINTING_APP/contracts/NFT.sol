@@ -1,9 +1,12 @@
 // START
 // TODO [] - initialize
 // TODO [] - smoke test
+
+// DEPLOYMENT & INIT
 // TODO [] - start deployment args
-// TODO [] - review and import Open Zepplin libs
 // TODO [] - contract scope state
+
+// TODO [] - review and import Open Zepplin libs
 
 // BASE FEATURES
 // TODO [] - MINTING
@@ -17,12 +20,13 @@
 // TODO [] - isGroupRevealed
 
 // MANAGEMENT - BY_OWNER
-// GROUP
+// GROUP MINT
 // TODO [] - setGroupMintDate
 // TODO [] - setGroupMintStatus [PENDING, OPEN, PAUSED, CLOSED]
-// TODO [] - setGroupAsRevealed
 // TODO [] - setGroupMintingCostTo
 // TODO [] - setGroupMaxMintAmount
+// GROUP META
+// TODO [] - setGroupAsRevealed
 // TODO [] - setGroupStagedURI
 // TODO [] - setGroupTokenPendingURI
 // TODO [] - setGroupBaseURI
