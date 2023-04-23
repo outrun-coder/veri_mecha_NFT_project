@@ -1,9 +1,11 @@
 {
   "name": "veri-mecha-mint-blockchain",
+  "license": "MIT",
   "scripts": {
     "test:all-contracts": "npx hardhat test",
     "test:target-contract": "sh ../BLOCK_PROJECT_UTILS/shell-scripts/test-contract.sh",
-    "start:hardhat-node": "npx hardhat node"
+    "process-local:target-script": "sh ../BLOCK_PROJECT_UTILS/shell-scripts/process-local-script.sh",
+    "start-local:hardhat-node": "npx hardhat node"
   },
   "devDependencies": {
     "@ethersproject/providers": "^5.7.2",
