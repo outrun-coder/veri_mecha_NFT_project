@@ -1,6 +1,8 @@
 {
   "name": "veri-mecha-mint-blockchain",
   "scripts": {
+    "test:all-contracts": "npx hardhat test",
+    "test:target-contract": "sh ../BLOCK_PROJECT_UTILS/shell-scripts/test-contract.sh",
     "start:hardhat-node": "npx hardhat node"
   },
   "devDependencies": {
