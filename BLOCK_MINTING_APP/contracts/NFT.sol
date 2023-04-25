@@ -1,10 +1,23 @@
-// START
-// TODO [] - initialize
-// TODO [] - smoke test
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.0;
 
-// DEPLOYMENT & INIT
 // TODO [] - start deployment args
-// TODO [] - contract scope state
+
+contract NFT_POC {
+// DEPLOYMENT & INIT
+// OK [x] - contract scope state
+string public xName;
+string public xSymbol;
+
+// OK [x] - initialize
+// OK [x] - smoke test
+constructor(
+  string memory _name,
+  string memory _symbol
+) {
+  xName = _name;
+  xSymbol = _symbol;
+}
 
 // TODO [] - review and import Open Zepplin libs
 
@@ -37,3 +50,6 @@
 
 // EXTRA
 // TODO [] - ADDITIVE / AMENDMENT COLLECTIONS
+// TODO [] - CONSIDER PROXY UPGRADEABLE MODEL
+
+}
