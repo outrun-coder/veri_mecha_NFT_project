@@ -13,7 +13,7 @@ console.log(`>> CONFIRM TESTER:`, apple);
 
 
 // CONTRACT TEST SUITE
-describe('NFT_POC', () => {
+describe('NFT_POC... \n', () => {
 // OK [x] - DESCRIBE CONTRACT & PROPS
 
   const CONTRACT_PROPS = {
@@ -41,7 +41,7 @@ describe('NFT_POC', () => {
 
 
   // OK [x] - DEPLOYMENT
-  describe('Deployment of', () => {
+  describe('Deployment of...', () => {
 
     beforeEach(async () => {
       const NFT_factory = await ethers.getContractFactory('NFT_POC');
@@ -62,9 +62,9 @@ describe('NFT_POC', () => {
     it('has correct base URI', async () => {
       expect(await nftContract.xBaseURI()).to.equal(CONTRACT_PROPS._baseTokenURI);
     });
-    // it('returns the owner', async () => {
-    //   expect(await nftContract.owner()).to.equal(deployer.address); // FIX - needs OZ API 
-    // });
+    it('returns the owner', async () => {
+      expect(await nftContract.owner()).to.equal(deployer.address); // FIX - needs OZ API 
+    });
   });
 
   // ! PROCESS MANAGEMENT

@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
-// TODO [] - review and import Open Zepplin libs
+// TODO [!] - review and import Open Zepplin libs
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 // OK [x] - start deployment args
 struct DeploymentArgs {
@@ -14,7 +15,7 @@ struct DeploymentArgs {
   string _baseTokenURI;
 }
 
-contract NFT_POC {
+contract NFT_POC is Ownable {
   // DEPLOYMENT & INIT
   // OK [x] - contract scope state
   string public xName;
@@ -60,6 +61,7 @@ contract NFT_POC {
   // TODO [] - ___
 
   // EXTRA
+  // TODO [] - WHITE LIST PROCESS MANAGEMENT
   // TODO [] - ADDITIVE / AMENDMENT COLLECTIONS
   // TODO [] - CONSIDER PROXY UPGRADEABLE MODEL
 
