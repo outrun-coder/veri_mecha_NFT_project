@@ -2,6 +2,7 @@
   "name": "veri-mecha-mint-blockchain",
   "license": "MIT",
   "scripts": {
+    "compile": "npx hardhat compile",
     "test:all-contracts": "npx hardhat test",
     "test:target-contract": "sh ../BLOCK_PROJECT_UTILS/shell-scripts/test-contract.sh",
     "process-local:target-script": "sh ../BLOCK_PROJECT_UTILS/shell-scripts/process-local-script.sh",
@@ -30,6 +31,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@openzeppelin/contracts": "^4.8.3",
     "dotenv": "^16.0.3",
     "moment": "^2.29.4",
     "reselect": "^4.1.7"
