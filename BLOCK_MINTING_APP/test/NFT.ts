@@ -16,32 +16,42 @@ console.log(`>> CONFIRM TESTER:`, apple);
 describe('NFT_POC... \n', () => {
 // OK [x] - DESCRIBE CONTRACT & PROPS
 
-  const CONTRACT_PROPS = {
+  const BASE_DEPLOYMENT_PROPS = {
     _name: 'Veri-Mecha',
     _symbol: 'VMECH',
     _baseCost: 1, // fix - .01 throws underflow error
     //
     // _baseTokenStagedURI: '',
     // _baseTokenPendingURI: '',
-    _baseTokenURI: 'asdf',
+    _baseTokenURI: 'asdf'
+  };
+
+  const FIRST_SEASON_CONFIG = {
+    _groupId: '01'
+  }
+
+  const CONTRACT_PROPS = {
+    ...BASE_DEPLOYMENT_PROPS,
+    ...FIRST_SEASON_CONFIG
   }
 
   // SUITE CONSTANTS
   let nftContract: Contract;
   // trx: ?
   let deployer: SignerWithAddress;
+  let deployerAddress: string;
 
-  // TODO [] - DETERMINE ACTORS
+  // TODO [-] - DETERMINE ACTORS
   beforeEach(async () => {
     const accounts = await ethers.getSigners();
     [
       deployer
     ] = accounts;
+    deployerAddress = deployer.address;
   });
 
-
   // OK [x] - DEPLOYMENT
-  describe('Deployment of...', () => {
+  describe('Deployment of...\n', () => {
 
     beforeEach(async () => {
       const NFT_factory = await ethers.getContractFactory('NFT_POC');
@@ -49,21 +59,29 @@ describe('NFT_POC... \n', () => {
       nftContract = await NFT_factory.deploy(CONTRACT_PROPS);
     });
 
-    it('has correct name', async () => {
-      expect(await nftContract.xName()).to.equal(CONTRACT_PROPS._name);
+    describe(`- Base setup:`, () => {
+      
+      it(`has correct name: ${CONTRACT_PROPS._name}`, async () => {
+        expect(await nftContract.xName()).to.equal(CONTRACT_PROPS._name);
+      });
+      it(`has correct symbol: ${CONTRACT_PROPS._symbol}`, async () => {
+        expect(await nftContract.xSymbol()).to.equal(CONTRACT_PROPS._symbol);
+      });
+      it(`has correct base cost: ${CONTRACT_PROPS._baseCost}`, async () => {
+        expect(await nftContract.xBaseCost()).to.equal(CONTRACT_PROPS._baseCost);
+      });
+      it(`has correct base URI: ${CONTRACT_PROPS._baseTokenURI}`, async () => {
+        expect(await nftContract.xBaseURI()).to.equal(CONTRACT_PROPS._baseTokenURI);
+      });
+      it(`returns the owner: ${'<< TBD'}`, async () => {
+        expect(await nftContract.owner()).to.equal(deployerAddress); // FIX - needs OZ API 
+      });
     });
-    it('has correct symbol', async () => {
-      expect(await nftContract.xSymbol()).to.equal(CONTRACT_PROPS._symbol);
-    });
-    it('has correct base cost', async () => {
-      expect(await nftContract.xBaseCost()).to.equal(CONTRACT_PROPS._baseCost);
-    });
-    // TODO - RETURNS A COLLECTION GROUP(s)
-    it('has correct base URI', async () => {
-      expect(await nftContract.xBaseURI()).to.equal(CONTRACT_PROPS._baseTokenURI);
-    });
-    it('returns the owner', async () => {
-      expect(await nftContract.owner()).to.equal(deployer.address); // FIX - needs OZ API 
+    
+    describe(`- First season setup`, () => {
+      it(`has the first season groupId: ${CONTRACT_PROPS._groupId}`, async () => {
+        expect(await nftContract.xGroupId()).to.equal(CONTRACT_PROPS._groupId);
+      });
     });
   });
 

@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 // TODO [!] - review and import Open Zepplin libs
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 // OK [x] - start deployment args
@@ -13,24 +14,35 @@ struct DeploymentArgs {
   // string _baseTokenStagedURI;
   // string _baseTokenPendingURI;
   string _baseTokenURI;
+  //
+  string _groupId;
 }
 
-contract NFT_POC is Ownable {
+contract NFT_POC is ERC721Enumerable, Ownable {
   // DEPLOYMENT & INIT
-  // OK [x] - contract scope state
+  // OK [x] - General contract state
   string public xName;
   string public xSymbol;
   uint256 public xBaseCost;
   string public xBaseURI;
 
+  // TODO [-] - Minting season state
+  string public xGroupId;
+
   // OK [x] - initialize
   // OK [x] - smoke test
-  constructor(DeploymentArgs memory args) {
+  constructor(DeploymentArgs memory args) 
+  ERC721(
+    args._name,
+    args._symbol
+  ) {
     xName = args._name;
     xSymbol = args._symbol;
     xBaseCost = args._baseCost;
     //
     xBaseURI = args._baseTokenURI;
+    //
+    xGroupId =  args._groupId;
   }
 
   // BASE FEATURES
