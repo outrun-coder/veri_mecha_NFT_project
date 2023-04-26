@@ -27,7 +27,8 @@ describe('NFT_POC... \n', () => {
   };
 
   const FIRST_SEASON_CONFIG = {
-    _groupId: '01'
+    _groupId: '01',
+    _groupMintingDate: (Date.now()).toString().slice(0, 10) // now
   }
 
   const CONTRACT_PROPS = {
@@ -55,7 +56,7 @@ describe('NFT_POC... \n', () => {
 
     beforeEach(async () => {
       const NFT_factory = await ethers.getContractFactory('NFT_POC');
-      // OK [x] - Consolidate deployment signature to a single interface
+      // OK [x] - Consolidate deployment signature to a single interface argument
       nftContract = await NFT_factory.deploy(CONTRACT_PROPS);
     });
 
@@ -81,6 +82,9 @@ describe('NFT_POC... \n', () => {
     describe(`- First season setup`, () => {
       it(`has the first season groupId: ${CONTRACT_PROPS._groupId}`, async () => {
         expect(await nftContract.xGroupId()).to.equal(CONTRACT_PROPS._groupId);
+      });
+      it(`provides the group minting date: ${CONTRACT_PROPS._groupMintingDate}`, async () => {
+        expect(await nftContract.xGroupMintingDate()).to.equal(CONTRACT_PROPS._groupMintingDate);
       });
     });
   });

@@ -16,6 +16,7 @@ struct DeploymentArgs {
   string _baseTokenURI;
   //
   string _groupId;
+  string _groupMintingDate;
 }
 
 contract NFT_POC is ERC721Enumerable, Ownable {
@@ -28,6 +29,7 @@ contract NFT_POC is ERC721Enumerable, Ownable {
 
   // TODO [-] - Minting season state
   string public xGroupId;
+  string public xGroupMintingDate;
 
   // OK [x] - initialize
   // OK [x] - smoke test
@@ -42,11 +44,15 @@ contract NFT_POC is ERC721Enumerable, Ownable {
     //
     xBaseURI = args._baseTokenURI;
     //
-    xGroupId =  args._groupId;
+    xGroupId = args._groupId;
+    xGroupMintingDate = args._groupMintingDate;
   }
 
   // BASE FEATURES
   // TODO [] - MINTING
+
+  // TODO [] - keep track of enumerable group URIs
+
   // TODO [] - getTokenGroupsOwnedBy(address _user)
   // TODO [] - getTokenURI
   // TODO [] - getTokenMeta
@@ -58,8 +64,8 @@ contract NFT_POC is ERC721Enumerable, Ownable {
 
   // MANAGEMENT - BY_OWNER
   // GROUP MINT
-  // TODO [] - setGroupMintDate
-  // TODO [] - setGroupMintStatus [PENDING, OPEN, PAUSED, CLOSED]
+  // TODO [] - setGroupMintingDate
+  // TODO [] - setGroupMintingStatus [PENDING, OPEN, PAUSED, CLOSED] (ENUM)
   // TODO [] - setGroupMintingCost
   // TODO [] - setGroupMaxMintAmount
   // GROUP META
