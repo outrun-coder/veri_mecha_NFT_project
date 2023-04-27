@@ -2,12 +2,16 @@
 // - DEPS
 import { expect } from 'chai';
 import { ethers } from 'hardhat';
-import { Contract } from 'ethers';
+
+// - TYPES
+import { Contract, ContractTransaction } from 'ethers';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 // - UTILS
 // TODO [] - create a renderResult util
-import { generateContract } from "block-project-utils";
+import { createConverterWith, generateContract } from "block-project-utils";
+
+const convert = createConverterWith(ethers);
 
 
 // CONTRACT TEST SUITE
