@@ -7,9 +7,7 @@ import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 // - UTILS
 // TODO [] - create a renderResult util
-import { testerUtil } from "block-project-utils";
-const apple = testerUtil
-console.log(`>> CONFIRM TESTER:`, apple);
+import { generateContract } from "block-project-utils";
 
 
 // CONTRACT TEST SUITE
@@ -32,7 +30,8 @@ describe('NFT_POC... \n', () => {
     _groupTotalMintsLeft: 100
   }
 
-  const CONTRACT_PROPS = {
+  const targetContractKey = 'NFT_POC';
+  const deploymentArgs = {
     ...BASE_DEPLOYMENT_PROPS,
     ...FIRST_SEASON_CONFIG
   }
@@ -56,24 +55,21 @@ describe('NFT_POC... \n', () => {
   describe('Deployment of...\n', () => {
 
     beforeEach(async () => {
-      const NFT_factory = await ethers.getContractFactory('NFT_POC');
-      // OK [x] - Consolidate deployment signature to a single interface argument
-      nftContract = await NFT_factory.deploy(CONTRACT_PROPS);
+      nftContract = await generateContract({ ethers, targetContractKey, deploymentArgs });
     });
 
     describe(`- Base setup:`, () => {
-      
-      it(`has correct name: ${CONTRACT_PROPS._name}`, async () => {
-        expect(await nftContract.xName()).to.equal(CONTRACT_PROPS._name);
+      it(`has correct name: ${deploymentArgs._name}`, async () => {
+        expect(await nftContract.xName()).to.equal(deploymentArgs._name);
       });
-      it(`has correct symbol: ${CONTRACT_PROPS._symbol}`, async () => {
-        expect(await nftContract.xSymbol()).to.equal(CONTRACT_PROPS._symbol);
+      it(`has correct symbol: ${deploymentArgs._symbol}`, async () => {
+        expect(await nftContract.xSymbol()).to.equal(deploymentArgs._symbol);
       });
-      it(`has correct base cost: ${CONTRACT_PROPS._baseCost}`, async () => {
-        expect(await nftContract.xBaseCost()).to.equal(CONTRACT_PROPS._baseCost);
+      it(`has correct base cost: ${deploymentArgs._baseCost}`, async () => {
+        expect(await nftContract.xBaseCost()).to.equal(deploymentArgs._baseCost);
       });
-      it(`has correct base URI: ${CONTRACT_PROPS._baseTokenURI}`, async () => {
-        expect(await nftContract.xBaseURI()).to.equal(CONTRACT_PROPS._baseTokenURI);
+      it(`has correct base URI: ${deploymentArgs._baseTokenURI}`, async () => {
+        expect(await nftContract.xBaseURI()).to.equal(deploymentArgs._baseTokenURI);
       });
       it(`returns the owner: ${'<< TBD'}`, async () => {
         expect(await nftContract.owner()).to.equal(deployerAddress); // FIX - needs OZ API 
@@ -81,14 +77,14 @@ describe('NFT_POC... \n', () => {
     });
     
     describe(`- First season setup`, () => {
-      it(`has the first season groupId: ${CONTRACT_PROPS._groupId}`, async () => {
-        expect(await nftContract.xGroupId()).to.equal(CONTRACT_PROPS._groupId);
+      it(`has the first season groupId: ${deploymentArgs._groupId}`, async () => {
+        expect(await nftContract.xGroupId()).to.equal(deploymentArgs._groupId);
       });
-      it(`provides the group minting date: ${CONTRACT_PROPS._groupMintingDate}`, async () => {
-        expect(await nftContract.xGroupMintingDate()).to.equal(CONTRACT_PROPS._groupMintingDate);
+      it(`provides the group minting date: ${deploymentArgs._groupMintingDate}`, async () => {
+        expect(await nftContract.xGroupMintingDate()).to.equal(deploymentArgs._groupMintingDate);
       });
-      it(`provides the group total mints left: ${CONTRACT_PROPS._groupTotalMintsLeft}`, async () => {
-        expect(await nftContract.xGroupTotalMintsLeft()).to.equal(CONTRACT_PROPS._groupTotalMintsLeft);
+      it(`provides the group total mints left: ${deploymentArgs._groupTotalMintsLeft}`, async () => {
+        expect(await nftContract.xGroupTotalMintsLeft()).to.equal(deploymentArgs._groupTotalMintsLeft);
       });
     });
   });
