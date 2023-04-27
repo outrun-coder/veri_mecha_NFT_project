@@ -28,7 +28,8 @@ describe('NFT_POC... \n', () => {
 
   const FIRST_SEASON_CONFIG = {
     _groupId: '01',
-    _groupMintingDate: (Date.now()).toString().slice(0, 10) // now
+    _groupMintingDate: (Date.now()).toString().slice(0, 10), // now
+    _groupTotalMintsLeft: 100
   }
 
   const CONTRACT_PROPS = {
@@ -85,6 +86,9 @@ describe('NFT_POC... \n', () => {
       });
       it(`provides the group minting date: ${CONTRACT_PROPS._groupMintingDate}`, async () => {
         expect(await nftContract.xGroupMintingDate()).to.equal(CONTRACT_PROPS._groupMintingDate);
+      });
+      it(`provides the group total mints left: ${CONTRACT_PROPS._groupTotalMintsLeft}`, async () => {
+        expect(await nftContract.xGroupTotalMintsLeft()).to.equal(CONTRACT_PROPS._groupTotalMintsLeft);
       });
     });
   });

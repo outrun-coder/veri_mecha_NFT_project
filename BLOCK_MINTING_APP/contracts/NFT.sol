@@ -17,6 +17,7 @@ struct DeploymentArgs {
   //
   string _groupId;
   string _groupMintingDate;
+  uint256 _groupTotalMintsLeft;
 }
 
 contract NFT_POC is ERC721Enumerable, Ownable {
@@ -30,6 +31,7 @@ contract NFT_POC is ERC721Enumerable, Ownable {
   // TODO [-] - Minting season state
   string public xGroupId;
   string public xGroupMintingDate;
+  uint256 public xGroupTotalMintsLeft;
 
   // OK [x] - initialize
   // OK [x] - smoke test
@@ -46,6 +48,7 @@ contract NFT_POC is ERC721Enumerable, Ownable {
     //
     xGroupId = args._groupId;
     xGroupMintingDate = args._groupMintingDate;
+    xGroupTotalMintsLeft = args._groupTotalMintsLeft;
   }
 
   // BASE FEATURES
