@@ -17,11 +17,12 @@ const convert = createConverterWith(ethers);
 // CONTRACT TEST SUITE
 describe('NFT_POC...', () => {
 // OK [x] - DESCRIBE CONTRACT & PROPS
+  const ETH_PER_MINT = 0.5; // TODO - RESEARCH RELATIVE PROJECT MINTING COSTS
 
   const BASE_DEPLOYMENT_PROPS = {
     _name: 'Veri-Mecha',
     _symbol: 'VMECH',
-    _baseCost: 1, // fix - .01 throws underflow error
+    _baseCost: convert.TokensToWei(ETH_PER_MINT),
     //
     // _baseTokenStagedURI: '',
     // _baseTokenPendingURI: '',
@@ -31,7 +32,7 @@ describe('NFT_POC...', () => {
   const FIRST_SEASON_CONFIG = {
     _groupId: '01',
     _groupMintingDate: (Date.now()).toString().slice(0, 10), // now
-    _groupTotalMintsLeft: 100
+    _groupTotalMintsLeft: 5
   }
 
   const targetContractKey = 'NFT_POC';
@@ -42,7 +43,8 @@ describe('NFT_POC...', () => {
 
   // SUITE CONSTANTS
   let nftContract: Contract;
-  // trx: ?
+  let trx: ContractTransaction;
+  //
   let deployer: SignerWithAddress;
   let deployerAddress: string;
 
@@ -93,9 +95,29 @@ describe('NFT_POC...', () => {
     });
   });
   
-  describe('\n Minting of... \n', () => {
+  describe('\n Minting will... \n', () => {
 
-    // beforeEach();
+    const mintQty = 5;
+    const ethRequiredToMint = mintQty * ETH_PER_MINT;
+    const costToMintQtyRequesting = convert.TokensToWei(ethRequiredToMint);
+
+    console.log('\n >> PREP FOR MINTING >> \n');
+    console.table({ ETH_PER_MINT, mintQty, ethRequiredToMint});
+    console.log('>> costToMintQtyRequesting:', costToMintQtyRequesting);
+
+    // beforeEach(async () => {
+    //   nftContract = await generateContract({ ethers, targetContractKey, deploymentArgs });
+    // });
+    describe(`- Be successful if...`, () => {
+      it(`First success test`, async () => {
+        expect(true);
+      });
+    });
+    describe(`- Be graceful if...`, () => {
+      it(`first graceful test`, async () => {
+        expect(true);
+      });
+    });
   });
   // BASE FEATURES
   // TODO [] - MINTING
