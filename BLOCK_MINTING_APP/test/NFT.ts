@@ -11,7 +11,7 @@ import { generateContract } from "block-project-utils";
 
 
 // CONTRACT TEST SUITE
-describe('NFT_POC... \n', () => {
+describe('NFT_POC...', () => {
 // OK [x] - DESCRIBE CONTRACT & PROPS
 
   const BASE_DEPLOYMENT_PROPS = {
@@ -52,7 +52,7 @@ describe('NFT_POC... \n', () => {
   });
 
   // OK [x] - DEPLOYMENT
-  describe('Deployment of...\n', () => {
+  describe('\n Deployment of... \n', () => {
 
     beforeEach(async () => {
       nftContract = await generateContract({ ethers, targetContractKey, deploymentArgs });
@@ -88,28 +88,32 @@ describe('NFT_POC... \n', () => {
       });
     });
   });
+  
+  describe('\n Minting of... \n', () => {
 
+    // beforeEach();
+  });
+  // BASE FEATURES
+  // TODO [] - MINTING
+  
   // ! PROCESS MANAGEMENT
-
+  
   // ! - PROCESS GROUP MIGRATION
   // ! - UPDATE GROUP MINTING
   // ! - UPDATE GROUP META
-    
+  
   // ! - UPDATE CONTRACT META
   // ! - PROCESS WITDRAWL OF FUNDS RAISED
-
-
+  
+  
   // TODO [] -
   // ! ACCESS CONTRACT
   // - DETAILS
   // - STATE
   // - RECORDS
   // - TOKEN DETAILS
-
-
-  // TODO [] -
-  // ! MINTING
-
+  
+  // TODO - RETURNS A COLLECTION GROUP(s)
 });
 
 //
