@@ -49,7 +49,7 @@ describe('NFT_POC...', () => {
   let deployer: SignerWithAddress;
   let deployerAddress: string;
   let minter_1: SignerWithAddress;
-  // let minter_1Address: string;
+  let minter_1Address: string;
   let minter_2: SignerWithAddress;
   // let minter_2Address: string;
 
@@ -69,7 +69,7 @@ describe('NFT_POC...', () => {
       minter_2
     ] = accounts;
     deployerAddress = deployer.address;
-    // minter_1Address = minter_1.address;
+    minter_1Address = minter_1.address;
   });
 
   // OK [x] - DEPLOYMENT
@@ -93,7 +93,7 @@ describe('NFT_POC...', () => {
         expect(await nftContract.xBaseURI()).to.equal(deploymentArgs._baseTokenURI);
       });
       it(`returns the owner: ${'<< TBD'}`, async () => {
-        expect(await nftContract.owner()).to.equal(deployerAddress); // FIX - needs OZ API 
+        expect(await nftContract.owner()).to.equal(deployerAddress);
       });
     });
 
@@ -119,7 +119,7 @@ describe('NFT_POC...', () => {
       nftContract = await generateContract({ ethers, targetContractKey, deploymentArgs });
     });
 
-    describe(`- will be graceful if...`, () => {
+    describe(`\n - will be graceful if...`, () => {
       const lowBall = figureOut.TokensToWei(1);
 
       it(`it rejects insufficient mint payment of: ${figureOut.WeiToTokens(lowBall)}`, async() => {
@@ -201,7 +201,35 @@ describe('NFT_POC...', () => {
       });
     });
   });
-        expect(true);
+
+  // OK
+  describe(`\n NFT verification... \n`, () => {
+    const specNunberOfMints_0 = 4;
+    const {
+      // ethRequiredToMint,
+      costToMint: specCostToMint
+    } = figureOut.howMuchToMint({ mintQuantity: specNunberOfMints_0, ethPerMint});
+   
+    console.log('\n >> PREP FOR NFT ID VERIFICATION \n');
+    console.table({specNunberOfMints_0, specCostToMintInWei: specCostToMint.toString()});
+
+    beforeEach(async () => {
+      nftContract = await generateContract({ ethers, targetContractKey, deploymentArgs });
+      trx = await nftContract.connect(minter_1).andMintFor(specNunberOfMints_0, {value: specCostToMint });
+      await trx.wait();
+    });
+
+    describe(`- will be successful if...`, () => {
+      it(`it returns all the NFTs for a given owner`, async() => {
+        const assetCollection = await nftContract.getAssetCollectionByOwner(minter_1Address);
+
+        // console.log('>> ASSETS:', assetCollection);
+        
+        expect(assetCollection.length).to.equal(specNunberOfMints_0);
+        expect(assetCollection[0].toString()).of.equal('1');
+        expect(assetCollection[1].toString()).of.equal('2');
+        expect(assetCollection[2].toString()).of.equal('3');
+        expect(assetCollection[3].toString()).of.equal('4');
       });
     });
   });

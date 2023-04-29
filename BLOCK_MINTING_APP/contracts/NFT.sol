@@ -98,6 +98,17 @@ contract NFT_POC is ERC721Enumerable, Ownable {
     emit MintCompleted(_mintQuantity, msg.sender);
   }
 
+  function getAssetCollectionByOwner(address _owner) public view returns(uint256[] memory) {
+    uint256 ownerTokenCount = balanceOf(_owner);
+    uint256[] memory tokenIds = new uint256[](ownerTokenCount);
+
+    for(uint256 i; i < ownerTokenCount; i++) {
+        tokenIds[i] = tokenOfOwnerByIndex(_owner, i);
+    }
+
+    return tokenIds;
+  }
+
   // TODO [] - keep track of enumerable group URIs
 
   // TODO [] - getTokenGroupsOwnedBy(address _user)
