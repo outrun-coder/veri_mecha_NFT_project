@@ -30,7 +30,7 @@ describe('NFT_POC...', () => {
   };
 
   const FIRST_SEASON_CONFIG = {
-    _groupId: '01',
+    // _groupId: '0000',
     _groupMintingDate: (Date.now()).toString().slice(0, 10), // now
     _groupTotalMintsLeft: 5
   }
@@ -98,9 +98,10 @@ describe('NFT_POC...', () => {
     });
 
     describe(`- First season setup`, () => {
-      it(`has the first season groupId: ${deploymentArgs._groupId}`, async () => {
-        expect(await nftContract.xGroupId()).to.equal(deploymentArgs._groupId);
-      });
+      // RESEARCH - IF COMPOUND TOKEN ID IS POSSIBLE AND USEABLE
+      // it(`has the first season groupId: ${deploymentArgs._groupId}`, async () => {
+      //   expect(await nftContract.xGroupId()).to.equal(deploymentArgs._groupId);
+      // });
       it(`provides the group minting date: ${deploymentArgs._groupMintingDate}`, async () => {
         expect(await nftContract.xGroupMintOpenDate()).to.equal(deploymentArgs._groupMintingDate);
       });

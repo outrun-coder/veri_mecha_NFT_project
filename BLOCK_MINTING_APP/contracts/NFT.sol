@@ -15,7 +15,7 @@ struct DeploymentArgs {
   // string _baseTokenPendingURI;
   string _baseTokenURI;
   //
-  string _groupId;
+  // string _groupId;
   uint256 _groupMintingDate;
   uint256 _groupTotalMintsLeft;
 }
@@ -46,7 +46,7 @@ contract NFT_POC is ERC721Enumerable, Ownable {
     //
     xBaseURI = args._baseTokenURI;
     //
-    xGroupId = args._groupId;
+    // xGroupId = args._groupId; // RESEARCH - IF COMPOUND ID IS POSSIBLE OR IF HAS BENEFITS
     xGroupMintOpenDate = args._groupMintingDate;
     xGroupTotalMintsLeft = args._groupTotalMintsLeft;
   }
@@ -77,12 +77,18 @@ contract NFT_POC is ERC721Enumerable, Ownable {
     // string memory tooManyFailMessage = string(abi.encodePacked("Requested mint quantity would leave: ", remaining, "remaing. The total left is: ", totalLeft));
     // require(remaining >= 0, tooManyFailMessage);
 
-    require(remaining >= 0, 'Requested mint quantity is more than the remaining supply. sorry!');
+    require(remaining >= 0, 'Requested mint quantity is more than the remaining group supply. sorry!');
 
     // mint x qty
-    uint256 supply = totalSupply();
     for (uint256 i = 1; i <= _mintQuantity; i++) {
-        _safeMint(msg.sender, supply + i); // TODO [] - verify if group id amendment will work
+      uint256 tokenCount = totalSupply();
+      uint256 newTokenId = tokenCount + 1;
+
+      // RESEARCH [] - verify if group id amendment will work
+      // ! till then tokenCount model will work
+      // string memory compundTokenId = string(abi.encodePacked(xGroupId, '_', newTokenId));
+
+      _safeMint(msg.sender,  newTokenId); 
     }
 
     // subtract from TOTAL_MINTS_LEFT
