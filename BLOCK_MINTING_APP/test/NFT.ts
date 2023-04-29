@@ -8,7 +8,7 @@ import { Contract, ContractTransaction } from 'ethers';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 // - UTILS
-// TODO [] - create a renderResult util
+// TODO [] - create a logResult util
 import { createFigureConverterWith, generateContract } from "block-project-utils";
 
 const figureOut = createFigureConverterWith(ethers);
@@ -17,7 +17,7 @@ const figureOut = createFigureConverterWith(ethers);
 // CONTRACT TEST SUITE
 describe('NFT_POC...', () => {
 // OK [x] - DESCRIBE CONTRACT & PROPS
-  const ethPerMint = 0.5; // TODO - RESEARCH RELATIVE PROJECT MINTING COSTS
+  const ethPerMint = 0.5; // RESEARCH - RELATIVE PROJECT MINTING COSTS
 
   const BASE_DEPLOYMENT_PROPS = {
     _name: 'Veri-Mecha',
@@ -232,6 +232,11 @@ describe('NFT_POC...', () => {
         expect(assetCollection[2].toString()).of.equal('3');
         expect(assetCollection[3].toString()).of.equal('4');
       });
+
+      // TODO - RETURNS THE ADDRESS FOR OWNER
+      // TODO - RETURNS THE COLLECTION COUNT FOR OWNER
+      // TODO - BLOCKS INVALID URI CHECK REQUEST
+      // TODO - 
     });
   });
   
