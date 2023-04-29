@@ -16,7 +16,7 @@ struct DeploymentArgs {
   string _baseTokenURI;
   //
   string _groupId;
-  string _groupMintingDate;
+  uint256 _groupMintingDate;
   uint256 _groupTotalMintsLeft;
 }
 
@@ -30,7 +30,7 @@ contract NFT_POC is ERC721Enumerable, Ownable {
 
   // TODO [-] - Minting season state
   string public xGroupId;
-  string public xGroupMintingDate;
+  uint256 public xGroupMintOpenDate;
   uint256 public xGroupTotalMintsLeft;
 
   // OK [x] - initialize
@@ -47,12 +47,50 @@ contract NFT_POC is ERC721Enumerable, Ownable {
     xBaseURI = args._baseTokenURI;
     //
     xGroupId = args._groupId;
-    xGroupMintingDate = args._groupMintingDate;
+    xGroupMintOpenDate = args._groupMintingDate;
     xGroupTotalMintsLeft = args._groupTotalMintsLeft;
   }
 
+
+  event MintCompleted(uint256 quantity, address minter);
+
   // BASE FEATURES
-  // TODO [] - MINTING
+  // OK [x] - MINTING
+  function andMintFor(uint256 _mintQuantity) public payable {
+    // - Require that publicMintOpenOn date has passed
+    require(block.timestamp >= xGroupMintOpenDate, "Minting cannot happen before the GROUP_MINT_OPEN_DATE");
+    
+    // - 1 mint minimum requirement
+    require(_mintQuantity > 0);
+
+    // TODO [] - ADD A MAX MINT REQUIREMENT BY MSG.SENDER MAPPING CHECK FOR GROUP or MINT SESSION
+    
+    // - Require enough payment for mint
+    require(msg.value >= xBaseCost * _mintQuantity, 'Not enough payment to fulfill the requested mint quantity!');
+
+    // Cap mint to GROUP_TOTAL_MINTS_LEFT
+    int256 leftToMint = int256(xGroupTotalMintsLeft);
+    int256 requesting = int256(_mintQuantity);
+    int256 remaining = leftToMint - requesting;
+    
+    // Fix - figure out string interpolation
+    // string memory tooManyFailMessage = string(abi.encodePacked("Requested mint quantity would leave: ", remaining, "remaing. The total left is: ", totalLeft));
+    // require(remaining >= 0, tooManyFailMessage);
+
+    require(remaining >= 0, 'Requested mint quantity is more than the remaining supply. sorry!');
+
+    // mint x qty
+    uint256 supply = totalSupply();
+    for (uint256 i = 1; i <= _mintQuantity; i++) {
+        _safeMint(msg.sender, supply + i); // TODO [] - verify if group id amendment will work
+    }
+
+    // subtract from TOTAL_MINTS_LEFT
+    xGroupTotalMintsLeft = xGroupTotalMintsLeft - _mintQuantity;
+
+    // log
+    emit MintCompleted(_mintQuantity, msg.sender);
+  }
 
   // TODO [] - keep track of enumerable group URIs
 
