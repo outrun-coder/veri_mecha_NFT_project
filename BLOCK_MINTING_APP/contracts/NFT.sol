@@ -21,6 +21,9 @@ struct DeploymentArgs {
 }
 
 contract NFT_POC is ERC721Enumerable, Ownable {
+  // ? what would you label the next statement >>>
+  using Strings for uint256;
+
   // DEPLOYMENT & INIT
   // OK [x] - General contract state
   string public xName;
@@ -98,6 +101,19 @@ contract NFT_POC is ERC721Enumerable, Ownable {
     emit MintCompleted(_mintQuantity, msg.sender);
   }
 
+  // returns metadata IPFS url
+  // example: 'ipfs://QmQ2jnDYecFhrf3asEWjyjZRX1pZSsNWG3qHzmNDvXa9qg/1.json'
+  function getTokenURI(uint256 _tokenId)
+    public
+    view
+    virtual
+    returns(string memory)
+  {
+    require(_exists(_tokenId), 'Token ID is not supported or minted.');
+
+    return (string (abi.encodePacked(xBaseURI, '/', _tokenId.toString(), '.json')));
+  }
+
   // OK [X] - getAssetCollectionByOwner
   function getAssetCollectionByOwner(address _owner) public view returns(uint256[] memory) {
     uint256 ownerTokenCount = balanceOf(_owner);
@@ -111,7 +127,6 @@ contract NFT_POC is ERC721Enumerable, Ownable {
   }
 
 
-  // TODO [] - getTokenURI
   // TODO [] - witdrawFundsRaised
 
   // TODO [\] - keep track of enumerable group URIs

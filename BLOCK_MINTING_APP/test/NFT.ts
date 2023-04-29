@@ -207,7 +207,6 @@ describe('NFT_POC...', () => {
         // console.log('>> TOTAL SUPPLY MINTED:', totalSupplyMinted, specMintQty_0);
         expect(totalSupplyMinted).to.equal(specMintQty_0);
       });
-
     });
   });
 
@@ -267,7 +266,13 @@ describe('NFT_POC...', () => {
         expect(assetCollection[2].toString()).of.equal('3');
         expect(assetCollection[3].toString()).of.equal('4');
       });
-
+            
+      const targetURI = `${deploymentArgs._baseTokenURI}/1.json`;
+      const targetTokenId = 1;
+      it(`returns IPFS URI ${targetURI} for spec tokenId: ${targetTokenId}`, async() => {
+        expect(await nftContract.getTokenURI(targetTokenId)).to.equal(targetURI);
+      });
+      
       // TODO - RETURNS THE ADDRESS FOR OWNER
       // TODO - RETURNS THE COLLECTION COUNT FOR OWNER
       // TODO - BLOCKS INVALID URI CHECK REQUEST
@@ -275,7 +280,9 @@ describe('NFT_POC...', () => {
     });
   });
   
-  // TODO 
+  // TODO -
+  // TODO [] -
+
   // ! PROCESS MANAGEMENT
   
   // ! - PROCESS GROUP MIGRATION
@@ -286,6 +293,3 @@ describe('NFT_POC...', () => {
   // ! - PROCESS WITDRAWL OF FUNDS RAISED
   
 });
-
-//
-// TODO [] -
