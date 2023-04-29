@@ -9,9 +9,9 @@ import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 // - UTILS
 // TODO [] - create a renderResult util
-import { createConverterWith, generateContract } from "block-project-utils";
+import { createFigureConverterWith, generateContract } from "block-project-utils";
 
-const convert = createConverterWith(ethers);
+const figureOut = createFigureConverterWith(ethers);
 
 
 // CONTRACT TEST SUITE
@@ -81,7 +81,7 @@ describe('NFT_POC...', () => {
         expect(await nftContract.owner()).to.equal(deployerAddress); // FIX - needs OZ API 
       });
     });
-    
+
     describe(`- First season setup`, () => {
       it(`has the first season groupId: ${deploymentArgs._groupId}`, async () => {
         expect(await nftContract.xGroupId()).to.equal(deploymentArgs._groupId);
@@ -119,6 +119,7 @@ describe('NFT_POC...', () => {
       });
     });
   });
+
   // BASE FEATURES
   // TODO [] - MINTING
   
@@ -130,14 +131,6 @@ describe('NFT_POC...', () => {
   
   // ! - UPDATE CONTRACT META
   // ! - PROCESS WITDRAWL OF FUNDS RAISED
-  
-  
-  // TODO [] -
-  // ! ACCESS CONTRACT
-  // - DETAILS
-  // - STATE
-  // - RECORDS
-  // - TOKEN DETAILS
   
   // TODO - RETURNS A COLLECTION GROUP(s)
 });
