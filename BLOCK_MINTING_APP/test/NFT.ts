@@ -201,6 +201,13 @@ describe('NFT_POC...', () => {
       it('trx updates the contract ETHER balance', async() => {
         expect(await ethers.provider.getBalance(nftContract.address)).to.equal(specMintCost_0);
       });
+      
+      it('trx updates the total supply', async() => { 
+        const totalSupplyMinted = await nftContract.totalSupply();
+        // console.log('>> TOTAL SUPPLY MINTED:', totalSupplyMinted, specMintQty_0);
+        expect(totalSupplyMinted).to.equal(specMintQty_0);
+      });
+
     });
   });
 
