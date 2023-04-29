@@ -54,11 +54,14 @@ describe('NFT_POC...', () => {
   // let minter_2Address: string;
 
   // ! MINTING ARGS
-  const mintQuantity = 5;
+  const specMintQty_0 = 5;
   const {
     ethRequiredToMint,
-    costToMint
-  } = figureOut.howMuchToMint({ mintQuantity, ethPerMint });
+    costToMint: specMintCost_0
+  } = figureOut.howMuchToMint({
+    mintQuantity: specMintQty_0,
+    ethPerMint
+  });
 
   // OK [x] - DETERMINE ACTORS
   beforeEach(async () => {
@@ -114,7 +117,7 @@ describe('NFT_POC...', () => {
   // OK [x] - MINTING
   describe('\n Minting... \n', () => {
     console.log('\n >> PREP FOR MINTING >> \n');
-    console.table({ ethPerMint, mintQuantity, ethRequiredToMint, costToMintInWei: costToMint.toString() });
+    console.table({ ethPerMint, specMintQty_0, ethRequiredToMint, costToMintInWei: specMintCost_0.toString() });
 
     beforeEach(async () => {
       nftContract = await generateContract({ ethers, targetContractKey, deploymentArgs });
@@ -124,16 +127,16 @@ describe('NFT_POC...', () => {
       const lowBall = figureOut.TokensToWei(1);
 
       it(`it rejects insufficient mint payment of: ${figureOut.WeiToTokens(lowBall)}`, async() => {
-        const underFundedMint = nftContract.connect(minter_1).andMintFor(mintQuantity, { value: lowBall });
+        const underFundedMint = nftContract.connect(minter_1).andMintFor(specMintQty_0, { value: lowBall });
         await expect(underFundedMint).to.be.reverted;
       });
       it(`it rejects a non funded mint request`, async() => {
-        const nonFundedMint = nftContract.connect(minter_1).andMintFor(mintQuantity);
+        const nonFundedMint = nftContract.connect(minter_1).andMintFor(specMintQty_0);
         await expect(nonFundedMint).to.be.reverted;
       });
       
       it('it rejects a 0 mint quantity w/ payment', async() => {
-        const nullMint = nftContract.connect(minter_1).andMintFor(0, { value: costToMint });
+        const nullMint = nftContract.connect(minter_1).andMintFor(0, { value: specMintCost_0 });
         await expect(nullMint).to.be.reverted;
       });
 
@@ -143,7 +146,10 @@ describe('NFT_POC...', () => {
         const {
           // ethRequiredToMint,
           costToMint: costToMintRemaining
-        } = figureOut.howMuchToMint({ mintQuantity: remaining, ethPerMint });
+        } = figureOut.howMuchToMint({
+          mintQuantity: remaining,
+          ethPerMint
+        });
 
         console.log(`>> CONTRACT HAS ${remaining} REMAINING TO MINT!`);
         console.log('>> MINITNG THE REST...');
@@ -164,7 +170,10 @@ describe('NFT_POC...', () => {
         const {
           // ethRequiredToMint,
           costToMint: costToOverMint
-        } = figureOut.howMuchToMint({ mintQuantity: overMintQuantity, ethPerMint });
+        } = figureOut.howMuchToMint({
+          mintQuantity: overMintQuantity,
+          ethPerMint
+        });
 
         console.log('>> "OVER MINTING"');
         console.log(`>> CONTRACT HAS ${await nftContract.xGroupTotalMintsLeft()} REMAINING TO MINT!`);
@@ -184,7 +193,7 @@ describe('NFT_POC...', () => {
     const specToPreLaunchDeploymentArgs = {
       ...deploymentArgs,
       ...{
-        _groupMintingDate: new Date(futureDate).getTime().toString().slice(0, 10)
+        _groupMintingDate: new Date(futureDate).getTime().toString().slice(0, 10) // NOTE - FUTURE DATE >> 
       }
     };
 
@@ -194,7 +203,7 @@ describe('NFT_POC...', () => {
 
     describe(`- will be graceful if...`, () => {
       it(`it rejects minting before launch date: ${futureDate}`, async() => {
-        const validButEarly = nftContract.connect(minter_1).andMintFor(mintQuantity, { value: costToMint });
+        const validButEarly = nftContract.connect(minter_1).andMintFor(specMintQty_0, { value: specMintCost_0 });
         
         // NOTE - SWAP COMMENTED LINES TO SEE CONTRACT EXCEPTION
         await expect(validButEarly).to.be.reverted;
@@ -205,18 +214,21 @@ describe('NFT_POC...', () => {
 
   // OK [x] - RETURNS AND VERIFIES COLLECTION GROUP(s)
   describe(`\n NFT verification... \n`, () => {
-    const specNunberOfMints_0 = 4;
+    const specMintQty_1 = 4;
     const {
       // ethRequiredToMint,
-      costToMint: specCostToMint
-    } = figureOut.howMuchToMint({ mintQuantity: specNunberOfMints_0, ethPerMint});
+      costToMint: specMintCost_1
+    } = figureOut.howMuchToMint({
+      mintQuantity: specMintQty_1,
+      ethPerMint
+    });
    
     console.log('\n >> PREP FOR NFT ID VERIFICATION \n');
-    console.table({specNunberOfMints_0, specCostToMintInWei: specCostToMint.toString()});
+    console.table({specMintQty_1, specCostToMintInWei: specMintCost_1.toString()});
 
     beforeEach(async () => {
       nftContract = await generateContract({ ethers, targetContractKey, deploymentArgs });
-      trx = await nftContract.connect(minter_1).andMintFor(specNunberOfMints_0, {value: specCostToMint });
+      trx = await nftContract.connect(minter_1).andMintFor(specMintQty_1, {value: specMintCost_1 });
       await trx.wait();
     });
 
@@ -226,7 +238,7 @@ describe('NFT_POC...', () => {
 
         // console.log('>> ASSETS:', assetCollection);
         
-        expect(assetCollection.length).to.equal(specNunberOfMints_0);
+        expect(assetCollection.length).to.equal(specMintQty_1);
         expect(assetCollection[0].toString()).of.equal('1');
         expect(assetCollection[1].toString()).of.equal('2');
         expect(assetCollection[2].toString()).of.equal('3');
