@@ -41,11 +41,11 @@ describe('NFT_POC...', () => {
     ...FIRST_SEASON_CONFIG
   }
 
-  // TEST STATE INDEX
+  // ! STATE INDEX
   let nftContract: Contract;
   let trx: ContractTransaction;
   
-  // TEST ACTORS
+  // ! ACTORS
   let deployer: SignerWithAddress;
   let deployerAddress: string;
   let minter_1: SignerWithAddress;
@@ -53,14 +53,14 @@ describe('NFT_POC...', () => {
   let minter_2: SignerWithAddress;
   // let minter_2Address: string;
 
-  // TEST MINTING ARGS
+  // ! MINTING ARGS
   const mintQuantity = 5;
   const {
     ethRequiredToMint,
     costToMint
   } = figureOut.howMuchToMint({ mintQuantity, ethPerMint });
 
-  // TODO [-] - DETERMINE ACTORS
+  // OK [x] - DETERMINE ACTORS
   beforeEach(async () => {
     const accounts = await ethers.getSigners();
     [
@@ -111,6 +111,7 @@ describe('NFT_POC...', () => {
     });
   });
   
+  // OK [x] - MINTING
   describe('\n Minting... \n', () => {
     console.log('\n >> PREP FOR MINTING >> \n');
     console.table({ ethPerMint, mintQuantity, ethRequiredToMint, costToMintInWei: costToMint.toString() });
@@ -202,7 +203,7 @@ describe('NFT_POC...', () => {
     });
   });
 
-  // OK
+  // OK [x] - RETURNS AND VERIFIES COLLECTION GROUP(s)
   describe(`\n NFT verification... \n`, () => {
     const specNunberOfMints_0 = 4;
     const {
@@ -233,10 +234,8 @@ describe('NFT_POC...', () => {
       });
     });
   });
-
-  // BASE FEATURES
-  // TODO [] - MINTING
   
+  // TODO 
   // ! PROCESS MANAGEMENT
   
   // ! - PROCESS GROUP MIGRATION
@@ -246,7 +245,6 @@ describe('NFT_POC...', () => {
   // ! - UPDATE CONTRACT META
   // ! - PROCESS WITDRAWL OF FUNDS RAISED
   
-  // TODO - RETURNS A COLLECTION GROUP(s)
 });
 
 //

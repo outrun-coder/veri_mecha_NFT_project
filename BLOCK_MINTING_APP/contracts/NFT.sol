@@ -98,6 +98,7 @@ contract NFT_POC is ERC721Enumerable, Ownable {
     emit MintCompleted(_mintQuantity, msg.sender);
   }
 
+  // OK [X] - getAssetCollectionByOwner
   function getAssetCollectionByOwner(address _owner) public view returns(uint256[] memory) {
     uint256 ownerTokenCount = balanceOf(_owner);
     uint256[] memory tokenIds = new uint256[](ownerTokenCount);
@@ -109,19 +110,20 @@ contract NFT_POC is ERC721Enumerable, Ownable {
     return tokenIds;
   }
 
-  // TODO [] - keep track of enumerable group URIs
 
-  // TODO [] - getTokenGroupsOwnedBy(address _user)
   // TODO [] - getTokenURI
-  // TODO [] - getTokenMeta
-  // TODO [] - getTokenImage
+  // TODO [] - witdrawFundsRaised
 
-  // MANAGEMENT - PUBLIC
+  // TODO [\] - keep track of enumerable group URIs
+  // TODO [\] - getTokenMeta
+  // TODO [\] - getTokenImage
+
+  // MANAGEMENT - TO_PUBLIC
   // TODO [] - getTimeUntilMinting
   // TODO [] - isGroupRevealed
 
   // MANAGEMENT - BY_OWNER
-  // GROUP MINT
+  // GROUP MINTING
   // TODO [] - setGroupMintingDate
   // TODO [] - setGroupMintingStatus [PENDING, OPEN, PAUSED, CLOSED] (ENUM)
   // TODO [] - setGroupMintingCost
@@ -133,10 +135,11 @@ contract NFT_POC is ERC721Enumerable, Ownable {
   // TODO [] - setGroupBaseURI
   // GENERAL
   // TODO [] - setBaseExtension
-  // TODO [] - witdrawFundsRaised
   // TODO [] - ___
 
   // EXTRA
+
+  // TODO [] - PRIVATE OPEN MINT DATE
   // TODO [] - WHITE LIST PROCESS MANAGEMENT
   // TODO [] - ADDITIVE / AMENDMENT COLLECTIONS
   // TODO [] - CONSIDER PROXY UPGRADEABLE MODEL
