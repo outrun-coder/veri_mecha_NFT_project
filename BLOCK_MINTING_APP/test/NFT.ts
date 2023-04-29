@@ -186,6 +186,22 @@ describe('NFT_POC...', () => {
         // await overMintTrx;
       });
     });
+
+    describe(`\n - will be successful if...`, () => {
+      beforeEach(async() => {
+        trx = await nftContract.connect(minter_1).andMintFor(specMintQty_0, { value: specMintCost_0 });
+        await trx.wait();
+      });
+
+      it(`trx emits a "MintCompleted" event for ${specMintQty_0} minted, from: minter_1`, async () => {
+        await expect(trx).to.emit(nftContract, 'MintCompleted')
+          .withArgs(specMintQty_0, minter_1Address);
+      })
+
+      it('trx updates the contract ETHER balance', async() => {
+        expect(await ethers.provider.getBalance(nftContract.address)).to.equal(specMintCost_0);
+      });
+    });
   });
 
   describe('\n Minting before GROUP_MINT_OPEN_DATE... \n', () => {
