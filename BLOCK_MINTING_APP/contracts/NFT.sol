@@ -54,6 +54,25 @@ contract NFT_POC is ERC721Enumerable, Ownable {
     xGroupTotalMintsLeft = args._groupTotalMintsLeft;
   }
 
+  // ! entity concepts
+    // NFT ASSET GROUP MAPPING
+    // - SECOND_LAYER
+    // struct assetToken {
+    //   uint256 _assetId; // [GROUP_ID]_[ASSET_ID] // NOTE - < COMPOUND ID FORMAT
+    //   string _assetName;
+    //   string _assetCategory;
+    // }
+
+    // - FIRST_LAYER
+    // struct assetGroup {
+    //   uint256 _groupId;
+    //   string _groupName;
+    //   //
+    //   // mapping(uint256 => assetToken) assetTokens;
+    // }
+
+    // mapping(uint256 => mapping(uint256 => assetToken)) xAssetGroups; // xAssetGroups[GROUP_ID][ASSET_ID] => assetToken
+  // ! END entity concepts
 
   event MintCompleted(uint256 quantity, address minter);
 
