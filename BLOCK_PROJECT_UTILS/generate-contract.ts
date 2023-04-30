@@ -3,10 +3,10 @@ const generateContract = async(args: any) => {
     const {
       ethers,
       targetContractKey,
-      deploymentArgs
+      contractConfig
     } = args;
       const contractFactory = await ethers.getContractFactory(targetContractKey);
-      const contract = await contractFactory.deploy(deploymentArgs);
+      const contract = await contractFactory.deploy(contractConfig);
 
       return contract;
 }

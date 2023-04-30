@@ -79,21 +79,21 @@ describe('NFT_POC...', () => {
   describe('\n Deployment of... \n', () => {
 
     beforeEach(async () => {
-      nftContract = await generateContract({ ethers, targetContractKey, deploymentArgs });
+      nftContract = await generateContract({ ethers, targetContractKey, contractConfig });
     });
 
     describe(`- Base setup:`, () => {
-      it(`has correct name: ${deploymentArgs._name}`, async () => {
-        expect(await nftContract.xName()).to.equal(deploymentArgs._name);
+      it(`has correct name: ${contractConfig._name}`, async () => {
+        expect(await nftContract.xName()).to.equal(contractConfig._name);
       });
-      it(`has correct symbol: ${deploymentArgs._symbol}`, async () => {
-        expect(await nftContract.xSymbol()).to.equal(deploymentArgs._symbol);
+      it(`has correct symbol: ${contractConfig._symbol}`, async () => {
+        expect(await nftContract.xSymbol()).to.equal(contractConfig._symbol);
       });
-      it(`has correct base cost: ${deploymentArgs._baseCost}`, async () => {
-        expect(await nftContract.xBaseCost()).to.equal(deploymentArgs._baseCost);
+      it(`has correct base cost: ${contractConfig._baseCost}`, async () => {
+        expect(await nftContract.xBaseCost()).to.equal(contractConfig._baseCost);
       });
-      it(`has correct base URI: ${deploymentArgs._baseTokenURI}`, async () => {
-        expect(await nftContract.xBaseURI()).to.equal(deploymentArgs._baseTokenURI);
+      it(`has correct base URI: ${contractConfig._baseTokenURI}`, async () => {
+        expect(await nftContract.xBaseURI()).to.equal(contractConfig._baseTokenURI);
       });
       it(`returns the owner: ${'<< TBD'}`, async () => {
         expect(await nftContract.owner()).to.equal(deployerAddress);
@@ -102,14 +102,14 @@ describe('NFT_POC...', () => {
 
     describe(`- First season setup`, () => {
       // RESEARCH - IF COMPOUND TOKEN ID IS POSSIBLE AND USEABLE
-      // it(`has the first season groupId: ${deploymentArgs._groupId}`, async () => {
-      //   expect(await nftContract.xGroupId()).to.equal(deploymentArgs._groupId);
+      // it(`has the first season groupId: ${contractConfig._groupId}`, async () => {
+      //   expect(await nftContract.xGroupId()).to.equal(contractConfig._groupId);
       // });
-      it(`provides the group minting date: ${deploymentArgs._groupMintingDate}`, async () => {
-        expect(await nftContract.xGroupMintOpenDate()).to.equal(deploymentArgs._groupMintingDate);
+      it(`provides the group minting date: ${contractConfig._groupMintingDate}`, async () => {
+        expect(await nftContract.xGroupMintOpenDate()).to.equal(contractConfig._groupMintingDate);
       });
-      it(`provides the group total mints left: ${deploymentArgs._groupTotalMintsLeft}`, async () => {
-        expect(await nftContract.xGroupTotalMintsLeft()).to.equal(deploymentArgs._groupTotalMintsLeft);
+      it(`provides the group total mints left: ${contractConfig._groupTotalMintsLeft}`, async () => {
+        expect(await nftContract.xGroupTotalMintsLeft()).to.equal(contractConfig._groupTotalMintsLeft);
       });
     });
   });
@@ -120,7 +120,7 @@ describe('NFT_POC...', () => {
     console.table({ ethPerMint, specMintQty_0, ethRequiredToMint, costToMintInWei: specMintCost_0.toString() });
 
     beforeEach(async () => {
-      nftContract = await generateContract({ ethers, targetContractKey, deploymentArgs });
+      nftContract = await generateContract({ ethers, targetContractKey, contractConfig });
     });
 
     describe(`\n - will be graceful if...`, () => {
@@ -213,14 +213,14 @@ describe('NFT_POC...', () => {
   describe('\n Minting before GROUP_MINT_OPEN_DATE... \n', () => {
     const futureDate = 'May 26, 2030 18:00:00';
     const specToPreLaunchDeploymentArgs = {
-      ...deploymentArgs,
+      ...contractConfig,
       ...{
         _groupMintingDate: new Date(futureDate).getTime().toString().slice(0, 10) // NOTE - FUTURE DATE >> 
       }
     };
 
     beforeEach(async () => {
-      nftContract = await generateContract({ ethers, targetContractKey, deploymentArgs: specToPreLaunchDeploymentArgs });
+      nftContract = await generateContract({ ethers, targetContractKey, contractConfig: specToPreLaunchDeploymentArgs });
     });
 
     describe(`- will be graceful if...`, () => {
@@ -237,7 +237,7 @@ describe('NFT_POC...', () => {
   // OK [x] - RETURNS AND VERIFIES COLLECTION GROUP(s)
   describe(`\n NFT verification... \n`, () => {
     const specMintQty_1 = 5;
-    const targetURI = `${deploymentArgs._baseTokenURI}/1.json`;
+    const targetURI = `${contractConfig._baseTokenURI}/1.json`;
     const targetTokenId = 1;
     const crazyHighTokenId = 999999;
 
@@ -253,7 +253,7 @@ describe('NFT_POC...', () => {
     console.table({specMintQty_1, specCostToMintInWei: specMintCost_1.toString()});
 
     beforeEach(async () => {
-      nftContract = await generateContract({ ethers, targetContractKey, deploymentArgs });
+      nftContract = await generateContract({ ethers, targetContractKey, contractConfig });
       trx = await nftContract.connect(minter_1).andMintFor(specMintQty_1, {value: specMintCost_1 });
       await trx.wait();
     });

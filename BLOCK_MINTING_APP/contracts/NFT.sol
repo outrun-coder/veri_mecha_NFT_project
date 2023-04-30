@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 // OK [x] - start deployment args
-struct DeploymentArgs {
+struct ContractConfig {
   string _name;
   string _symbol;
   uint256 _baseCost;
@@ -38,7 +38,7 @@ contract NFT_POC is ERC721Enumerable, Ownable {
 
   // OK [x] - initialize
   // OK [x] - smoke test
-  constructor(DeploymentArgs memory args) 
+  constructor(ContractConfig memory args) 
   ERC721(
     args._name,
     args._symbol
