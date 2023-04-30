@@ -8,7 +8,7 @@ import { Contract, ContractTransaction } from 'ethers';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 // - UTILS
-// TODO [] - create a logResult util
+// TODO_LATER [] - create a logResult util
 import { createFigureConverterWith, generateContract } from "block-project-utils";
 
 const figureOut = createFigureConverterWith(ethers);

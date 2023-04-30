@@ -85,7 +85,7 @@ contract NFT_POC is ERC721Enumerable, Ownable {
     // - 1 mint minimum requirement
     require(_mintQuantity > 0);
 
-    // TODO [] - ADD A MAX MINT REQUIREMENT BY MSG.SENDER MAPPING CHECK FOR GROUP or MINT SESSION
+    // TODO_LATER [] - ADD A MAX MINT REQUIREMENT BY MSG.SENDER MAPPING CHECK FOR GROUP or MINT SESSION
     
     // - Require enough payment for mint
     require(msg.value >= xBaseCost * _mintQuantity, 'Not enough payment to fulfill the requested mint quantity!');
@@ -147,14 +147,13 @@ contract NFT_POC is ERC721Enumerable, Ownable {
 
 
   // TODO [] - witdrawFundsRaised
+  // TODO [] - keep track of enumerable group URIs
 
-  // TODO [\] - keep track of enumerable group URIs
-  // TODO [\] - getTokenMeta
-  // TODO [\] - getTokenImage
+  // TODO_LATER [\] - getTokenMeta
+  // TODO_LATER [\] - getTokenImage
 
   // MANAGEMENT - TO_PUBLIC
-  // TODO [] - getTimeUntilMinting
-  // TODO [] - isGroupRevealed
+  // TODO_LATER [] - isGroupRevealed
 
   // MANAGEMENT - BY_OWNER
   // GROUP MINTING
@@ -168,7 +167,6 @@ contract NFT_POC is ERC721Enumerable, Ownable {
   // TODO [] - setGroupPendingURI
   // TODO [] - setGroupBaseURI
   // GENERAL
-  // TODO [] - setBaseExtension
   // TODO [] - ___
 
   // EXTRA
