@@ -9,6 +9,7 @@ NFT development POC for proof of skill set - Homage to Robotech
 | Started: 04/23/23 | DONE: 4/23/23 | FEATURE - PROJECT utils & scripts | _________ |
 | Started: 04/24/23 | DONE: 4/29/23 | FEATURE - Re hash the NFT minting contract | _________ |
 | Started: 04/23/23 | TASK - Get familiar with Open Zepplin | _________ | _________ |
+| Started: 04/29/23 | FEATURE - Deployment script |_________|_________|
 | Started: 04/29/23 | FEATURE - UI_MINTING_APP |_________|_________|
 | TASK - get IPFS desktop | _________|_________|_________|
 | Source Artwork | _________|_________|_________|
