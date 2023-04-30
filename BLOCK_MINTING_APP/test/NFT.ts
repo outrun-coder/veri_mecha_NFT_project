@@ -38,7 +38,7 @@ describe('NFT_POC...', () => {
   const {
     ethRequiredToMint,
     costToMint: specMintCost_0
-  } = figureOut.howMuchToMint({
+  } = convert.howMuchToMint({
     mintQuantity: specMintQty_0,
     ethPerMint
   });
@@ -103,10 +103,10 @@ describe('NFT_POC...', () => {
       nftContract = await generateContract({ ethers, targetContractKey, contractConfig });
     });
 
-    describe(`\n - will be graceful if...`, () => {
-      const lowBall = figureOut.TokensToWei(1);
+    describe(`- will be graceful if...`, () => {
+      const lowBall = convert.TokensToWei(1);
 
-      it(`it rejects insufficient mint payment of: ${figureOut.WeiToTokens(lowBall)}`, async() => {
+      it(`it rejects insufficient mint payment of: ${convert.WeiToTokens(lowBall)}`, async() => {
         const underFundedMint = nftContract.connect(minter_1).andMintFor(specMintQty_0, { value: lowBall });
         await expect(underFundedMint).to.be.reverted;
       });
@@ -121,24 +121,24 @@ describe('NFT_POC...', () => {
       });
 
       it('it does not allow additional mints after GROUP_TOTAL_MINTS_LEFT has been zeroed out', async () => {
-        console.log('>> "LATE TO THE PARTY"');
+        // console.log('>> "LATE TO THE PARTY"');
         const remaining = await nftContract.xGroupTotalMintsLeft();
         const {
           // ethRequiredToMint,
           costToMint: costToMintRemaining
-        } = figureOut.howMuchToMint({
+        } = convert.howMuchToMint({
           mintQuantity: remaining,
           ethPerMint
         });
 
-        console.log(`>> CONTRACT HAS ${remaining} REMAINING TO MINT!`);
-        console.log('>> MINITNG THE REST...');
+        // console.log(`>> CONTRACT HAS ${remaining} REMAINING TO MINT!`);
+        // console.log('>> MINITNG THE REST...');
         trx = await nftContract.connect(minter_1).andMintFor(remaining, { value: costToMintRemaining });
         await trx.wait();
         
-        console.log(`>> CONTRACT HAS ${await nftContract.xGroupTotalMintsLeft()} REMAINING TO MINT!`);
-        console.log('>> TRYING FOR ONE MORE...');
-        const tooLateTrx = nftContract.connect(minter_2).andMintFor(1, { value: figureOut.TokensToWei(ethPerMint) });
+        // console.log(`>> CONTRACT HAS ${await nftContract.xGroupTotalMintsLeft()} REMAINING TO MINT!`);
+        // console.log('>> TRYING FOR ONE MORE...');
+        const tooLateTrx = nftContract.connect(minter_2).andMintFor(1, { value: convert.TokensToWei(ethPerMint) });
         
         // NOTE - SWAP COMMENTED LINES TO SEE CONTRACT EXCEPTION
         await expect(tooLateTrx).to.be.reverted;
@@ -150,14 +150,14 @@ describe('NFT_POC...', () => {
         const {
           // ethRequiredToMint,
           costToMint: costToOverMint
-        } = figureOut.howMuchToMint({
+        } = convert.howMuchToMint({
           mintQuantity: overMintQuantity,
           ethPerMint
         });
 
-        console.log('>> "OVER MINTING"');
-        console.log(`>> CONTRACT HAS ${await nftContract.xGroupTotalMintsLeft()} REMAINING TO MINT!`);
-        console.log('>> OVER MINT REQUESTING: ', overMintQuantity);
+        // console.log('>> "OVER MINTING"');
+        // console.log(`>> CONTRACT HAS ${await nftContract.xGroupTotalMintsLeft()} REMAINING TO MINT!`);
+        // console.log('>> OVER MINT REQUESTING: ', overMintQuantity);
 
         const overMintTrx = nftContract.connect(minter_1).andMintFor(overMintQuantity, { value: costToOverMint });
         
@@ -167,7 +167,7 @@ describe('NFT_POC...', () => {
       });
     });
 
-    describe(`\n - will be successful if...`, () => {
+    describe(`- will be successful if...`, () => {
       beforeEach(async() => {
         trx = await nftContract.connect(minter_1).andMintFor(specMintQty_0, { value: specMintCost_0 });
         await trx.wait();
@@ -224,7 +224,7 @@ describe('NFT_POC...', () => {
     const {
       // ethRequiredToMint,
       costToMint: specMintCost_1
-    } = figureOut.howMuchToMint({
+    } = convert.howMuchToMint({
       mintQuantity: specMintQty_1,
       ethPerMint
     });
