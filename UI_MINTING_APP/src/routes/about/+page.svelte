@@ -3,8 +3,14 @@
 	<meta name="description" content="About this app" />
 </svelte:head>
 
+<script lang="ts">
+	import { Button } from 'sveltestrap';
+</script>
+
 <div class="text-column">
 	<h1>About this app</h1>
+
+	<Button>TESTING</Button>
 
 	<p>
 		This is a <a href="https://kit.svelte.dev">SvelteKit</a> app. You can make your own by typing the

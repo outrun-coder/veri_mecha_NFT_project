@@ -1,5 +1,10 @@
 # create-svelte
 
+## issues
+- using sveltestrap brings in popper.js as a broken dependency - use links below to setup a work around
+  - https://github.com/sveltejs/kit/issues/2161#issuecomment-1252026388
+  - https://github.com/sveltejs/kit/issues/4504#issuecomment-1135338008
+
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
 ## Creating a project
