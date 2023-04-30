@@ -236,7 +236,11 @@ describe('NFT_POC...', () => {
 
   // OK [x] - RETURNS AND VERIFIES COLLECTION GROUP(s)
   describe(`\n NFT verification... \n`, () => {
-    const specMintQty_1 = 4;
+    const specMintQty_1 = 5;
+    const targetURI = `${deploymentArgs._baseTokenURI}/1.json`;
+    const targetTokenId = 1;
+    const crazyHighTokenId = 999999;
+
     const {
       // ethRequiredToMint,
       costToMint: specMintCost_1
@@ -255,7 +259,7 @@ describe('NFT_POC...', () => {
     });
 
     describe(`- will be successful if...`, () => {
-      it(`it returns all the NFTs for a given owner`, async() => {
+      it(`it returns all ${specMintQty_1} NFTs owner minted`, async() => {
         const assetCollection = await nftContract.getAssetCollectionByOwner(minter_1Address);
 
         // console.log('>> ASSETS:', assetCollection);
@@ -265,18 +269,27 @@ describe('NFT_POC...', () => {
         expect(assetCollection[1].toString()).of.equal('2');
         expect(assetCollection[2].toString()).of.equal('3');
         expect(assetCollection[3].toString()).of.equal('4');
+        expect(assetCollection[4].toString()).of.equal('5');
       });
             
-      const targetURI = `${deploymentArgs._baseTokenURI}/1.json`;
-      const targetTokenId = 1;
-      it(`returns IPFS URI ${targetURI} for spec tokenId: ${targetTokenId}`, async() => {
+      it(`it returns IPFS URI ${targetURI} for spec tokenId: ${targetTokenId}`, async() => {
         expect(await nftContract.getTokenURI(targetTokenId)).to.equal(targetURI);
       });
       
-      // TODO - RETURNS THE ADDRESS FOR OWNER
-      // TODO - RETURNS THE COLLECTION COUNT FOR OWNER
-      // TODO - BLOCKS INVALID URI CHECK REQUEST
-      // TODO - 
+      it(`it returns the address of the owner for tokenId: ${targetTokenId}`, async () => {
+        expect(await nftContract.ownerOf(targetTokenId)).to.equal(minter_1Address);
+      });
+
+      it(`it returns total number of tokens the minter owns: ${specMintQty_1}`, async () => {
+        expect(await nftContract.balanceOf(minter_1Address)).to.equal(specMintQty_1);
+      });
+
+      it(`it rejects match of invalid tokenId: ${crazyHighTokenId} for TOKEN_URI`, async() => {
+        const badURIRequest = nftContract.getTokenURI(crazyHighTokenId);
+        // NOTE - SWAP COMMENTED LINES TO SEE CONTRACT EXCEPTION
+        await expect(badURIRequest).to.be.reverted;
+        // await badURIRequest;
+      });
     });
   });
   
@@ -291,5 +304,4 @@ describe('NFT_POC...', () => {
   
   // ! - UPDATE CONTRACT META
   // ! - PROCESS WITDRAWL OF FUNDS RAISED
-  
 });
