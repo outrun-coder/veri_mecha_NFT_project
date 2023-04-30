@@ -38,6 +38,7 @@
 	"type": "module",
 	"dependencies": {
 		"dotenv": "^16.0.3",
-		"moment": "^2.29.4"
+		"moment": "^2.29.4",
+		"sveltestrap": "^5.10.0"
 	}
 }
