@@ -9,7 +9,7 @@ import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 // - UTILS
 // TODO_LATER [] - create a logResult util
-import { createFigureConverterWith, generateContract } from "block-project-utils";
+import { createFigureConverterWith, processContractDeployment } from "block-project-utils";
 
 // - CONFIG
 import createNFTcontractConfigWith, { targetContractKey, ethPerMint } from '../config/deployment/contract-nft';
@@ -59,7 +59,7 @@ describe('NFT_POC...', () => {
   describe('\n Deployment of... \n', () => {
 
     beforeEach(async () => {
-      nftContract = await generateContract({ ethers, targetContractKey, contractConfig: nftConfig });
+      nftContract = await processContractDeployment({ ethers, targetContractKey, contractConfig: nftConfig });
     });
 
     describe(`- Base setup:`, () => {
@@ -100,7 +100,7 @@ describe('NFT_POC...', () => {
     console.table({ ethPerMint, specMintQty_0, ethRequiredToMint, costToMintInWei: specMintCost_0.toString() });
 
     beforeEach(async () => {
-      nftContract = await generateContract({ ethers, targetContractKey, contractConfig: nftConfig });
+      nftContract = await processContractDeployment({ ethers, targetContractKey, contractConfig: nftConfig });
     });
 
     describe(`- will be graceful if...`, () => {
@@ -200,7 +200,7 @@ describe('NFT_POC...', () => {
     };
 
     beforeEach(async () => {
-      nftContract = await generateContract({ ethers, targetContractKey, contractConfig: specToPreLaunchDeploymentConfig });
+      nftContract = await processContractDeployment({ ethers, targetContractKey, contractConfig: specToPreLaunchDeploymentConfig });
     });
 
     describe(`- will be graceful if...`, () => {
@@ -233,7 +233,7 @@ describe('NFT_POC...', () => {
     console.table({specMintQty_1, specCostToMintInWei: specMintCost_1.toString()});
 
     beforeEach(async () => {
-      nftContract = await generateContract({ ethers, targetContractKey, contractConfig: nftConfig });
+      nftContract = await processContractDeployment({ ethers, targetContractKey, contractConfig: nftConfig });
       trx = await nftContract.connect(minter_1).andMintFor(specMintQty_1, {value: specMintCost_1 });
       await trx.wait();
     });
