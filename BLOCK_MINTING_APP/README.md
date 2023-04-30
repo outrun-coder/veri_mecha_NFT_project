@@ -6,7 +6,7 @@
 - ``$ cd ../BLOCK_PROJECT_UTILS``
 - ``$ npm link``
 - ``$ cd ../BLOCK_MINTING_APP``
-- ``$ npm link block-project-utils``
+- ``$ npm link block-project-utils --force``
 - Good to go!
 
 
