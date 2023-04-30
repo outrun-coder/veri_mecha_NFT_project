@@ -1,7 +1,7 @@
 export const targetContractKey = 'NFT_POC';
 export const ethPerMint = 0.5; // RESEARCH - RELATIVE PROJECT MINTING COSTS
 
-const createProjectConfigurationWith = (convert: any) => {
+const createNFTcontractConfigWith = (convert: any) => {
   const BASE_DEPLOYMENT_PROPS = {
     _name: 'Veri-Mecha',
     _symbol: 'VMECH',
@@ -18,12 +18,12 @@ const createProjectConfigurationWith = (convert: any) => {
     _groupTotalMintsLeft: 5
   }
   
-  const contractConfig = {
+  const nftConfig = {
     ...BASE_DEPLOYMENT_PROPS,
     ...FIRST_SEASON_CONFIG
   }
 
-  return contractConfig;
+  return nftConfig;
 };
 
-export default createProjectConfigurationWith;
+export default createNFTcontractConfigWith;
