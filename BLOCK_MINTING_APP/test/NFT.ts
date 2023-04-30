@@ -11,35 +11,15 @@ import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 // TODO_LATER [] - create a logResult util
 import { createFigureConverterWith, generateContract } from "block-project-utils";
 
-const figureOut = createFigureConverterWith(ethers);
+// - CONFIG
+import createProjectConfigurationWith, { targetContractKey, ethPerMint } from '../config/deployment/contract-nft';
 
+const convert = createFigureConverterWith(ethers);
+const contractConfig = createProjectConfigurationWith(convert);
 
 // CONTRACT TEST SUITE
 describe('NFT_POC...', () => {
-// OK [x] - DESCRIBE CONTRACT & PROPS
-  const ethPerMint = 0.5; // RESEARCH - RELATIVE PROJECT MINTING COSTS
-
-  const BASE_DEPLOYMENT_PROPS = {
-    _name: 'Veri-Mecha',
-    _symbol: 'VMECH',
-    _baseCost: figureOut.TokensToWei(ethPerMint),
-    //
-    // _baseTokenStagedURI: '',
-    // _baseTokenPendingURI: '',
-    _baseTokenURI: 'asdf'
-  };
-
-  const FIRST_SEASON_CONFIG = {
-    // _groupId: '0000',
-    _groupMintingDate: (Date.now()).toString().slice(0, 10), // now
-    _groupTotalMintsLeft: 5
-  }
-
-  const targetContractKey = 'NFT_POC';
-  const deploymentArgs = {
-    ...BASE_DEPLOYMENT_PROPS,
-    ...FIRST_SEASON_CONFIG
-  }
+  console.log('>> TEST WILL USE CONTRACT_CONFIGURATION: \n', contractConfig);
 
   // ! STATE INDEX
   let nftContract: Contract;
