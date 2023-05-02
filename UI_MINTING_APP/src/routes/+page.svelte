@@ -1,7 +1,9 @@
 <script>
+	import { Button, NavLink } from 'sveltestrap';
+
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
-	import { Button, NavLink } from 'sveltestrap';
+	import NftGallery from '../components/display/nft-gallery.svelte';
 </script>
 
 <svelte:head>
@@ -18,18 +20,15 @@
 			</picture>
 		</span>
 
-		to the next mecha rage!
+		to the arenas of Teka!
 	</h1>
 
 	<h2>
 		<strong>Race, Battle, Build, and Rage!</strong>
 	</h2>
 
-	<h3>-Gallery Goes here-</h3>
+	<NftGallery/>
 
-	<NavLink href="/mint">
-		<Button>Mint a Mecha!</Button>
-	</NavLink>
 </section>
 
 <style>
