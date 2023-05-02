@@ -2,6 +2,7 @@
 	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import { Button } from 'sveltestrap';
 </script>
 
 <svelte:head>
@@ -18,14 +19,16 @@
 			</picture>
 		</span>
 
-		to your new<br />SvelteKit app
+		to the next mecha rage!
 	</h1>
 
 	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
+		<strong>Race, Battle, Build, and Rage!</strong>
 	</h2>
 
-	<Counter />
+	<h3>-Gallery Goes here-</h3>
+
+	<Button>Mint a Veri-Mecha!</Button>
 </section>
 
 <style>
