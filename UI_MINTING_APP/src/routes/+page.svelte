@@ -1,8 +1,7 @@
 <script>
-	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
-	import { Button } from 'sveltestrap';
+	import { Button, NavLink } from 'sveltestrap';
 </script>
 
 <svelte:head>
@@ -28,7 +27,9 @@
 
 	<h3>-Gallery Goes here-</h3>
 
-	<Button>Mint a Veri-Mecha!</Button>
+	<NavLink href="/mint">
+		<Button>Mint a Mecha!</Button>
+	</NavLink>
 </section>
 
 <style>
