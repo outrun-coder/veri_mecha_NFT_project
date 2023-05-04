@@ -3,6 +3,6 @@
 
 </script>
 
-<h1>Mint</h1>
+<h1>MINTING</h1>
 
 <NftMinting/>

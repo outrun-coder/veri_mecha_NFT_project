@@ -10,6 +10,8 @@
 <div class="app">
 	<Header />
 
+	<h1>Veri-Mecha</h1>
+
 	<main>
 		<slot />
 	</main>
