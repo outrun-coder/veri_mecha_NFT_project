@@ -1,7 +1,9 @@
 <script>
-	import Counter from './Counter.svelte';
+	import { Button, NavLink } from 'sveltestrap';
+
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import NftGallery from '../components/display/nft-gallery.svelte';
 </script>
 
 <svelte:head>
@@ -18,14 +20,15 @@
 			</picture>
 		</span>
 
-		to your new<br />SvelteKit app
+		to the arenas of Teka!
 	</h1>
 
 	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
+		<strong>Race, Battle, Build, and Rage!</strong>
 	</h2>
 
-	<Counter />
+	<NftGallery/>
+
 </section>
 
 <style>

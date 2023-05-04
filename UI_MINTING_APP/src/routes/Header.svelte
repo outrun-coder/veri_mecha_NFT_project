@@ -19,6 +19,12 @@
 			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
 				<a href="/">Home</a>
 			</li>
+			<li aria-current={$page.url.pathname === '/mint' ? 'page' : undefined}>
+				<a href="/mint">Mint</a>
+			</li>
+			<li aria-current={$page.url.pathname === '/garage-gallery' ? 'page' : undefined}>
+				<a href="/garage-gallery">Garage</a>
+			</li>
 			<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
 				<a href="/about">About</a>
 			</li>
@@ -32,13 +38,22 @@
 	</nav>
 
 	<div class="corner">
-		<a href="https://github.com/sveltejs/kit">
-			<img src={github} alt="GitHub" />
-		</a>
+		<!-- TODO - link that opens MetaMask -->
+		<div class="wallet-hud">
+			Truncated wallet address here ...
+		</div>
 	</div>
 </header>
 
 <style>
+	.wallet-hud {
+		position: absolute;
+		width: 400px;
+		right: 0px;
+		padding: 15px;
+		border: 1px solid red;
+	}
+
 	header {
 		display: flex;
 		justify-content: space-between;
