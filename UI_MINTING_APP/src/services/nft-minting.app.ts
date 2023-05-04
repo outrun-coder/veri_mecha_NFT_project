@@ -1,3 +1,4 @@
+import { networkConfigs } from "../spec-config"
 
 class NftMintingApp {
 
@@ -12,7 +13,7 @@ class NftMintingApp {
     // [] - USER
     // [] - CONTRACT
     this.store = "TEST_STORE"
-    this.contract = "TEST_CONTRACT"
+    this.contract = networkConfigs[31337].nft_VM.address;
     this.user = "TEST_USER"
   }
 }
