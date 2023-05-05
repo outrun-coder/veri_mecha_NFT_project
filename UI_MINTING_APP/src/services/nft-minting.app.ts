@@ -15,14 +15,16 @@ class NftMintingApp {
   chainId = "0000";
 
   nftContract: any
-  user: any
+  userAddress: any
 
   setupNetworkConnections = async() => {
+    // ! CONNECTION
     //@ts-ignore
     const provider = new ethers.BrowserProvider(window.ethereum);
     const network = await provider.getNetwork();
     const chainId = network.chainId.toString();
 
+    // ! CONTRACT
     const { nft_VM } = networkConfigs[chainId];
     const nftContract = new ethers.Contract(nft_VM.address, NFT_VM_ABI, provider);
 
@@ -33,6 +35,14 @@ class NftMintingApp {
     this.nftContract = nftContract;
   }
 
+  setupUserConnection = async() => {
+    //@ts-ignore
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const userAddress = ethers.getAddress(accounts[0]);
+
+    this.userAddress = userAddress;
+  }
+
   constructor() {
     // TODO [] - STORE FOR RECORD MANAGEMENT
     // [] - USER
@@ -41,10 +51,9 @@ class NftMintingApp {
 
     if (browser) {
       this.setupNetworkConnections();
+      this.setupUserConnection();
+      // TODO [] - setupNFTcontractData();
     }
-    
-    this.user = "TEST_USER"
-
   }
 }
 
