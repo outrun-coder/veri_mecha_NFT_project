@@ -1,5 +1,6 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vitest/config';
+import path from 'path';
 
 export default defineConfig({
 	plugins: [sveltekit()],
@@ -8,5 +9,11 @@ export default defineConfig({
 	},
 	ssr: {
 		noExternal: ['@popperjs/core']
+	},
+	resolve: {
+		alias: {
+			'services': path.resolve('./src/services'),
+			'components': path.resolve('./src/components')
+		}
 	}
 });
