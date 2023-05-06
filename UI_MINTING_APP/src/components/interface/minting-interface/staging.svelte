@@ -1,10 +1,14 @@
 <script lang="ts">
-	import { Badge, Button, Card, CardBody, CardHeader } from "sveltestrap";
+	import { Badge, Button, Card, CardBody, CardHeader, Spinner } from "sveltestrap";
 	import NftContainer from "../nft-container.svelte";
 	import NftBaseModel from "../../../spec-config/entities/nft-base";
 	import NftMinting from "services/nft-minting.app";
   const { nftTotalMintsLeft_ } = NftMinting;
 
+  export let handleMintingWith: any; // func
+
+  // state
+  let isProcessing: boolean = false;
   let toBeMinted: Array<any> = [new NftBaseModel];
   $:mintsAreAvailable = (toBeMinted.length < $nftTotalMintsLeft_);
 
@@ -26,12 +30,13 @@
     toBeMinted = toBeMinted;
   };
 
-  export const mintX = (e: any) => {
-    console.log('>> HANDLE WAS INVOKED:', e);
-    const mintCount = toBeMinted.length;
+  export const mintX = async() => {
+    isProcessing = true;
 
-    console.log('>> WILL MINT:', mintCount);
-    
+    const count = toBeMinted.length;
+    await handleMintingWith(count);
+
+    isProcessing = false;
   };  
 </script>
 
@@ -68,7 +73,15 @@
       {/each}
     </div>
 
-    <Button on:click={mintX}>Mint Mecha</Button>
+    <Button
+      on:click={mintX}
+      disabled={isProcessing}>
+        {#if isProcessing}
+          Processing... <Spinner color="light" size="sm"/>
+        {:else}
+          Mint Mecha
+        {/if}
+    </Button>
   </CardBody>
 </Card>
 
