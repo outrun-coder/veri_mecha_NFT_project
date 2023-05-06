@@ -1,5 +1,5 @@
 export const targetContractKey = 'NFT_POC';
-export const ethPerMint = 0.5; // RESEARCH - RELATIVE PROJECT MINTING COSTS
+export const ethPerMint = 0.005; // RESEARCH - RELATIVE PROJECT MINTING COSTS
 
 const createNFTcontractConfigWith = (convert: any) => {
   const BASE_DEPLOYMENT_PROPS = {

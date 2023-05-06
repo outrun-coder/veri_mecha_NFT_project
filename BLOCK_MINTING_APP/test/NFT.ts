@@ -104,7 +104,7 @@ describe('NFT_POC...', () => {
     });
 
     describe(`- will be graceful if...`, () => {
-      const lowBall = convert.TokensToWei(1);
+      const lowBall = convert.TokensToWei(.0025);
 
       it(`it rejects insufficient mint payment of: ${convert.WeiToTokens(lowBall)}`, async() => {
         const underFundedMint = nftContract.connect(minter_1).andMintFor(specMintQty_0, { value: lowBall });
@@ -240,7 +240,7 @@ describe('NFT_POC...', () => {
 
     describe(`- will be successful if...`, () => {
       it(`it returns all ${specMintQty_1} NFTs owner minted`, async() => {
-        const assetCollection = await nftContract.getAssetCollectionByOwner(minter_1Address);
+        const assetCollection = await nftContract.getTokenCollectionByOwner(minter_1Address);
 
         // console.log('>> ASSETS:', assetCollection);
         

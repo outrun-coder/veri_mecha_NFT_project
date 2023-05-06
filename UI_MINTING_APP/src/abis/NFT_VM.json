@@ -232,7 +232,7 @@
         "type": "address"
       }
     ],
-    "name": "getAssetCollectionByOwner",
+    "name": "getTokenCollectionByOwner",
     "outputs": [
       {
         "internalType": "uint256[]",
@@ -566,19 +566,6 @@
   {
     "inputs": [],
     "name": "xBaseURI",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "xGroupId",
     "outputs": [
       {
         "internalType": "string",
