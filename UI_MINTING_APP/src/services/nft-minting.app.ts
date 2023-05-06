@@ -12,7 +12,14 @@ class NftMintingApp {
   store: any
   
   provider: any
-  nftContract: any
+  contractNFT: any
+
+  nftName_: any = writable('');
+  nftSymbol_: any = writable();
+  nftCost_: any = writable();
+  nftBaseURI_: any = writable();
+  nftMintOpenDate_: any = writable();
+  nftTotalMintsLeft_: any = writable();
 
   network_: any = writable({});
   chanId_: any = writable('');
@@ -40,6 +47,17 @@ class NftMintingApp {
     const userAddress = ethers.getAddress(accounts[0]);
 
     this.userAddress_.set(userAddress);
+  }
+
+  setupNFTcontractData = async() => {
+    const { contractNFT } = this;
+    
+    this.nftName_.set(await contractNFT.xName());
+    this.nftSymbol_.set(await contractNFT.xSymbol());
+    this.nftCost_.set(await contractNFT.xBaseCost());
+    this.nftBaseURI_.set(await contractNFT.xBaseURI());
+    this.nftMintOpenDate_.set(await contractNFT.xGroupMintOpenDate());
+    this.nftTotalMintsLeft_.set(await contractNFT.xGroupTotalMintsLeft());
   }
 
   setupApplication = async() => {
