@@ -15,7 +15,7 @@ const createNFTcontractConfigWith = (convert: any) => {
   const FIRST_SEASON_CONFIG = {
     // _groupId: '0000',
     _groupMintingDate: (Date.now()).toString().slice(0, 10), // now
-    _groupTotalMintsLeft: 5
+    _groupTotalMintsLeft: 10
   }
   
   const nftConfig = {
