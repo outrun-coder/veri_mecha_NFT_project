@@ -22,16 +22,13 @@ class NftMintingApp {
   setupNetworkConnections = async() => {
     // ! CONNECTION
     //@ts-ignore
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    const network = await provider.getNetwork();
+    this.provider = new ethers.BrowserProvider(window.ethereum);
+    const network = await this.provider.getNetwork();
     const chainId = network.chainId.toString();
 
     // ! CONTRACT
     const { nft_VM } = networkConfigs[chainId];
-    const nftContract = new ethers.Contract(nft_VM.address, NFT_VM_ABI, provider);
-
-    this.provider = provider;
-    this.nftContract = nftContract;
+    this.contractNFT = new ethers.Contract(nft_VM.address, NFT_VM_ABI, this.provider);
 
     this.network_.set(network);
     this.chanId_.set(chainId);
@@ -45,6 +42,11 @@ class NftMintingApp {
     this.userAddress_.set(userAddress);
   }
 
+  setupApplication = async() => {
+    await this.setupNetworkConnections();
+    await this.setupNFTcontractData();
+  }
+
   constructor() {
     // TODO [] - STORE FOR RECORD MANAGEMENT
     // [] - USER
@@ -52,8 +54,7 @@ class NftMintingApp {
     this.store = "TEST_STORE"
 
     if (browser) {
-      this.setupNetworkConnections();
-      // TODO [] - setupNFTcontractData();
+      this.setupApplication();
 
       // TODO [] - ADD CONNECT WALLET FEATURE from amm
       // this.setupUserConnection();
