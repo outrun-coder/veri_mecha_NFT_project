@@ -11,7 +11,12 @@ const convert = createFigureConverterWith(ethers);
 const nftConfig = createNFTcontractConfigWith(convert);
 
 async function main() {
-  const nftContract = await processContractDeployment({ ethers, targetContractKey, contractConfig: nftConfig });
+  const nftContract = await processContractDeployment({
+    verbose: true,
+    ethers,
+    targetContractKey,
+    contractConfig: nftConfig
+  });
   await nftContract.deployed();
 
   console.log(`\n NFT CONTRACT DEPLOYED TO: ${nftContract.address}\n`)

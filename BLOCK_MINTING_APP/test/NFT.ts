@@ -12,7 +12,7 @@ import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { createFigureConverterWith, processContractDeployment } from "block-project-utils";
 
 // - CONFIG
-import createNFTcontractConfigWith, { targetContractKey, ethPerMint } from '../config/deployment/contract-nft';
+import createNFTcontractConfigWith, { targetContractKey, ethPerMint, overMintQuantity } from '../config/deployment/contract-nft';
 
 const convert = createFigureConverterWith(ethers);
 const nftConfig = createNFTcontractConfigWith(convert);
@@ -146,7 +146,6 @@ describe('NFT_POC...', () => {
       });
 
       it('it does not allow more NFTs to be minted than GROUP_TOTAL_MINTS_LEFT', async () => {
-        const overMintQuantity = 6;
         const {
           // ethRequiredToMint,
           costToMint: costToOverMint

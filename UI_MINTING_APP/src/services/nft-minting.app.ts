@@ -7,6 +7,7 @@ import { ethers } from 'ethers'
 import { createFigureConverterWith } from "block-project-utils";
 import { networkConfigs } from "../spec-config"
 import NFT_VM_ABI from '../abis/NFT_VM.json';
+import { delay } from 'block-project-utils/mock-network-delay';
 
 class NftMintingApp {
   convert: any = createFigureConverterWith(ethers);

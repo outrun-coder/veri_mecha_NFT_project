@@ -1,6 +1,9 @@
 export const targetContractKey = 'NFT_POC';
 export const ethPerMint = 0.005; // RESEARCH - RELATIVE PROJECT MINTING COSTS
 
+// TEST SPEC ONLY
+export const overMintQuantity = 12;
+
 const createNFTcontractConfigWith = (convert: any) => {
   const BASE_DEPLOYMENT_PROPS = {
     _name: 'Veri-Mecha',
