@@ -116,6 +116,9 @@ class NftMintingApp {
         success: true,
         error: null,
         data: {
+          numberOfMints,
+          estCostToMint: convert.WeiToTokens(costToMint),
+          ethPerMint,
           trx
         }
       };
@@ -136,6 +139,17 @@ class NftMintingApp {
   // STATE WATCHING
   appIsWorking = derived([this.isLoading, this.isProcessing], ([$isLoading, $isProcessing]) => {
     return $isLoading || $isProcessing;
+  });
+
+  mintGroupIsExhausted = derived(this.nftTotalMintsLeft_, ($nftTotalMintsLeft_) => {
+    if (typeof $nftTotalMintsLeft_ === 'bigint') {
+      // is bigint
+      // @ts-ignore
+      return parseInt($nftTotalMintsLeft_) === 0;
+    } else {
+      // is undefined
+      return false;
+    }
   });
 }
 
