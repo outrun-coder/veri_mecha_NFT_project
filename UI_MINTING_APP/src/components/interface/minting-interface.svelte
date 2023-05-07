@@ -8,7 +8,7 @@
   // })
   import { Card, CardBody } from "sveltestrap";
   
-  import Staging from "./minting-interface/staging.svelte";
+  import MintsStaging from "./minting-interface/mints-staging.svelte";
   import ProcessingScreen from "components/display/processing-screen.svelte";
   import NftMinting from "services/nft-minting.app";
 
@@ -39,8 +39,7 @@
 
 <Card>
   <CardBody>
-    <Staging
-      handleMintingWith={handleMintingWith}/>
+    <MintsStaging/>
 
     {#if $appIsWorking}
       <ProcessingScreen/>
