@@ -8,19 +8,27 @@ import { createFigureConverterWith } from "block-project-utils";
 import { networkConfigs } from "../spec-config"
 import NFT_VM_ABI from '../abis/NFT_VM.json';
 import { delay } from 'block-project-utils/mock-network-delay';
+import { checkNFTaccountDetailsFrom } from 'block-project-utils/development-logging';
 
 class NftMintingApp {
   convert: any = createFigureConverterWith(ethers);
 
   store: any
   
+  // STATE
   isLoading = writable(true);
   isProcessing = writable(false);
-  hasAccountConnection = writable(false);
+  userOptedToConnect = writable(false);
 
+  // NETWORK
+  // network_: any = {};
+  chanId_: any = '';
+
+  // WEB3 CONNECTIONS
   provider: any
   uiNFTcontract: any
 
+  // NFT CONTRACT DETAILS
   nftCost_ = 0;
   nftName_ = '';
   nftSymbol_ = '';
@@ -29,11 +37,28 @@ class NftMintingApp {
   nftTotalMintsLeft_: any = writable();
   nftBaseURI_: any = writable(); // X
 
-  // network_: any = {};
-  chanId_: any = '';
-
+  // USER / ACCOUNT(S)
   userAddress_: any = writable(null); // ''
+  // TODO - ADD COLLECTION
+  // TODO - ETH BALANCE VERIFICATION
 
+  // STATE WATCHING
+  appIsWorking = derived([this.isLoading, this.isProcessing], ([$isLoading, $isProcessing]) => {
+    return $isLoading || $isProcessing;
+  });
+
+  mintGroupIsExhausted = derived(this.nftTotalMintsLeft_, ($nftTotalMintsLeft_) => {
+    if (typeof $nftTotalMintsLeft_ === 'bigint') {
+      // is bigint
+      // @ts-ignore
+      return parseInt($nftTotalMintsLeft_) === 0;
+    } else {
+      // is undefined
+      return false;
+    }
+  });
+
+  // SETUP ACTIONS
   setupNetworkConnections = async() => {
     // ! CONNECTION
     //@ts-ignore
@@ -49,10 +74,6 @@ class NftMintingApp {
     this.uiNFTcontract = new ethers.Contract(nft_VM.address, NFT_VM_ABI, this.provider);
   }
 
-  setTotalMintsLeft = async() => {
-    this.nftTotalMintsLeft_.set(await this.uiNFTcontract.xGroupTotalMintsLeft());
-  }
-
   setNFTcontractData = async() => {
     const { uiNFTcontract } = this;
     
@@ -66,21 +87,50 @@ class NftMintingApp {
     this.nftBaseURI_.set(await uiNFTcontract.xBaseURI()); // X
   }
 
+  activateWeb3EventListeners = async() => {    
+    // ! ON ACCOUNT CHANGE
+    // @ts-ignore
+    (window.ethereum) ? window.ethereum.on('accountsChanged', async () => {
+      let optedIn = false;
+      this.userOptedToConnect.subscribe(value => optedIn = value);
+      (optedIn) ? this.connectUserAccount() : null;
+    })
+    : null;
+
+    // TODO - NETWORK CHANGED
+    // ! ON NETWORK CHANGE
+    // window.ethereum.on('chainChanged', () => {
+    //   // ! Teardown(s)
+    //   window.location.reload();
+    // });
+  }
+
   setupApplication = async() => {
     await this.setupNetworkConnections();
     await this.setNFTcontractData();
+    this.activateWeb3EventListeners();
     this.isLoading.set(false);
   }
 
   constructor() {
     // TODO [] - STORE FOR RECORD MANAGEMENT
-    // [] - USER
-
-    this.store = "TEST_STORE"
+    this.store = "TEST_STORE" // X
 
     if (browser) {
       this.setupApplication();
     }
+  }
+
+  // HANDLERS
+  // TODO -
+  dropAccountConnection = () => {
+    // userAddress
+    // tokenCollection
+    // ethBalance
+  }
+
+  setTotalMintsLeft = async() => {
+    this.nftTotalMintsLeft_.set(await this.uiNFTcontract.xGroupTotalMintsLeft());
   }
 
   collectAccount = async() => {
@@ -99,12 +149,9 @@ class NftMintingApp {
     const { uiNFTcontract } = this;
     const tokenCollection = await uiNFTcontract.getTokenCollectionWith(userAddress);
 
-    console.log('>> TOKEN_COLLECTION HAS:', tokenCollection.length);
-    tokenCollection.forEach((t: any) => {
-      console.log('>> VERIFY TOKEN:', t.toString());
-    });
-
     // TODO - SET AND READ IN GALLERY
+
+    return tokenCollection;
   }
 
   connectUserAccount = async() => {
@@ -112,18 +159,25 @@ class NftMintingApp {
     await delay(1000);
     const userAddress = await this.collectAccount();
     
-    // loadBalances
-    await this.loadTokenCollection({
+    // TODO - loadETHBalances
+    const tokenCollection = await this.loadTokenCollection({
       userAddress
     });
     
-    console.log('>> CHECK APP:', this);
-    
     this.isLoading.set(false);
-    
-    // TODO - return result of process to invocation
+
+    const result = {
+      userAddress,
+      tokenCollection
+    }
+
+    // TODO - IF VERBOSE TESTING
+    checkNFTaccountDetailsFrom(result);
+
+    return result;
   }
 
+  // CONTRACT ACTIONS
   processMintsBy = async(numberOfMints: number) => {
     const { provider, uiNFTcontract, convert, nftCost_ } = this;
 
@@ -169,23 +223,9 @@ class NftMintingApp {
     }
   }
 
-  // STATE WATCHING
-  appIsWorking = derived([this.isLoading, this.isProcessing], ([$isLoading, $isProcessing]) => {
-    return $isLoading || $isProcessing;
-  });
-
-  mintGroupIsExhausted = derived(this.nftTotalMintsLeft_, ($nftTotalMintsLeft_) => {
-    if (typeof $nftTotalMintsLeft_ === 'bigint') {
-      // is bigint
-      // @ts-ignore
-      return parseInt($nftTotalMintsLeft_) === 0;
-    } else {
-      // is undefined
-      return false;
-    }
-  });
 }
 
+// START - SINGLETON
 const NftMinting = new NftMintingApp();
 
 // ABSTRACTION HELPERS

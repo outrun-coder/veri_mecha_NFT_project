@@ -3,21 +3,20 @@
 	import NftMinting from "services/nft-minting.app";
 	import { delay } from "block-project-utils/mock-network-delay";
 
-  let phConfirmation = false;
-  const { appIsWorking } = NftMinting;
+  const { appIsWorking, userOptedToConnect } = NftMinting;
+
+  let optedIn = false;
 
   const activateInterface = async() => {
     await NftMinting.connectUserAccount();
 
-    // todo - Confirmation message and swithch
-    phConfirmation = true;
+    optedIn = true;
 
-    // fix - temp
     await delay(2500);
-    NftMinting.hasAccountConnection.set(true);
+    userOptedToConnect.set(true);
   }
 
-  $:statusColor = (phConfirmation) ? 'success' : 'primary';
+  $:statusColor = (optedIn) ? 'success' : 'primary';
 </script>
 
 <Card>
@@ -25,8 +24,9 @@
     <div class="connection-landing">
       <Button
         color={statusColor}
+        disabled={optedIn}
         on:click={activateInterface}>
-        {#if phConfirmation}
+        {#if optedIn}
           Pilot Connected!
         {:else if $appIsWorking}
           Connecting... <Spinner size="sm" color="light"/>
