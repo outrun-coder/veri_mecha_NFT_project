@@ -1,8 +1,17 @@
 const createFigureConverterWith = (ethers: any) => {
-  const { utils: {
-    parseUnits,
-    formatEther
-  } } = ethers;
+  let
+  parseUnits: any, // func
+  formatEther: any; // func
+
+  if (ethers.utils) {
+    // v5
+    parseUnits = ethers.utils.parseUnits;
+    formatEther = ethers.utils.formatEther;
+  } else {
+    // v6 no util level
+    parseUnits = ethers.parseUnits;
+    formatEther = ethers.formatEther;
+  }
 
   const TokensToWei = (amount: any) => { // number || string
     // 1 => 1000000000000000000
