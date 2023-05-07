@@ -93,6 +93,47 @@ class NftMintingApp {
     }
   }
 
+  collectAccount = async() => {
+    //@ts-ignore
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const userAddress = ethers.getAddress(accounts[0]);
+
+    // TODO - COLLECT SIGNER ? HERE OR AT TIME OF TRX INVOCATION ?
+
+    this.userAddress_.set(userAddress);
+    return userAddress;
+  }
+
+  loadTokenCollection = async(args: any) => {
+    const { userAddress } = args;
+    const { uiNFTcontract } = this;
+    const tokenCollection = await uiNFTcontract.getTokenCollectionWith(userAddress);
+
+    console.log('>> TOKEN_COLLECTION HAS:', tokenCollection.length);
+    tokenCollection.forEach((t: any) => {
+      console.log('>> VERIFY TOKEN:', t.toString());
+    });
+
+    // TODO - SET AND READ IN GALLERY
+  }
+
+  connectUserAccount = async() => {
+    this.isLoading.set(true);
+    await delay(1000);
+    const userAddress = await this.collectAccount();
+    
+    // loadBalances
+    await this.loadTokenCollection({
+      userAddress
+    });
+    
+    console.log('>> CHECK APP:', this);
+    
+    this.isLoading.set(false);
+    
+    // TODO - return result of process to invocation
+  }
+
   processMintsBy = async(numberOfMints: number) => {
     const { provider, contractNFT, convert, nftCost_ } = this;
 

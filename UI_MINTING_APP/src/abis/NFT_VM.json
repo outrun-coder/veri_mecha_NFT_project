@@ -232,7 +232,7 @@
         "type": "address"
       }
     ],
-    "name": "getTokenCollectionByOwner",
+    "name": "getTokenCollectionWith",
     "outputs": [
       {
         "internalType": "uint256[]",

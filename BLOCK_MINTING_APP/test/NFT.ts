@@ -239,16 +239,16 @@ describe('NFT_POC...', () => {
 
     describe(`- will be successful if...`, () => {
       it(`it returns all ${specMintQty_1} NFTs owner minted`, async() => {
-        const assetCollection = await nftContract.getTokenCollectionByOwner(minter_1Address);
+        const tokenCollection = await nftContract.getTokenCollectionWith(minter_1Address);
 
-        // console.log('>> ASSETS:', assetCollection);
+        // console.log('>> ASSETS:', tokenCollection);
         
-        expect(assetCollection.length).to.equal(specMintQty_1);
-        expect(assetCollection[0].toString()).of.equal('1');
-        expect(assetCollection[1].toString()).of.equal('2');
-        expect(assetCollection[2].toString()).of.equal('3');
-        expect(assetCollection[3].toString()).of.equal('4');
-        expect(assetCollection[4].toString()).of.equal('5');
+        expect(tokenCollection.length).to.equal(specMintQty_1);
+        expect(tokenCollection[0].toString()).of.equal('1');
+        expect(tokenCollection[1].toString()).of.equal('2');
+        expect(tokenCollection[2].toString()).of.equal('3');
+        expect(tokenCollection[3].toString()).of.equal('4');
+        expect(tokenCollection[4].toString()).of.equal('5');
       });
             
       it(`it returns IPFS URI ${targetURI} for spec tokenId: ${targetTokenId}`, async() => {

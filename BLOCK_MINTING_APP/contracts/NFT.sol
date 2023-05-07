@@ -133,8 +133,8 @@ contract NFT_POC is ERC721Enumerable, Ownable {
     return (string (abi.encodePacked(xBaseURI, '/', _tokenId.toString(), '.json')));
   }
 
-  // OK [X] - getTokenCollectionByOwner
-  function getTokenCollectionByOwner(address _owner) public view returns(uint256[] memory) {
+  // OK [X] - getTokenCollectionWith
+  function getTokenCollectionWith(address _owner) public view returns(uint256[] memory) {
     uint256 ownerTokenCount = balanceOf(_owner);
     uint256[] memory tokenIds = new uint256[](ownerTokenCount);
 
