@@ -13,7 +13,7 @@ import { checkNFTaccountDetailsFrom } from 'block-project-utils/development-logg
 class NftMintingApp {
   convert: any = createFigureConverterWith(ethers);
 
-  store: any
+  // store: any
   
   // STATE
   isLoading = writable(true);
@@ -63,12 +63,13 @@ class NftMintingApp {
     // ! CONNECTION
     //@ts-ignore
     this.provider = new ethers.BrowserProvider(window.ethereum);
+    
     const network = await this.provider.getNetwork();
     const chainId = network.chainId.toString();
-
+    
     // this.network_ = network;
     this.chanId_ = chainId;
-
+    
     // ! CONTRACT
     const { nft_VM } = networkConfigs[chainId];
     this.uiNFTcontract = new ethers.Contract(nft_VM.address, NFT_VM_ABI, this.provider);
@@ -106,15 +107,20 @@ class NftMintingApp {
   }
 
   setupApplication = async() => {
-    await this.setupNetworkConnections();
-    await this.setNFTcontractData();
-    this.activateWeb3EventListeners();
-    this.isLoading.set(false);
+    try {
+      await this.setupNetworkConnections();
+      await this.setNFTcontractData();
+      this.activateWeb3EventListeners();
+      this.isLoading.set(false);
+    } catch(error) {
+      console.error('(!) CAUGHT ERROR DURING SETUP(!) :', error);
+      // TODO - CREATE TOP LEVEL ERROR HANDLING CONVENTION
+    }
   }
 
   constructor() {
     // TODO [] - STORE FOR RECORD MANAGEMENT
-    this.store = "TEST_STORE" // X
+    // this.store = "TEST_STORE" // X
 
     if (browser) {
       this.setupApplication();
