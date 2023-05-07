@@ -14,10 +14,10 @@ const createFigureConverterWith = (ethers: any) => {
     return formatEther(bigNumber);
   }
 
-  const howMuchToMint = (args: any) => {
-    const { mintQuantity, ethPerMint } = args;
+  const toCostByNumberOfMints = (args: any) => {
+    const { numberOfMints, ethPerMint } = args;
   
-    const ethRequiredToMint = mintQuantity * ethPerMint;
+    const ethRequiredToMint = numberOfMints * ethPerMint;
     const costToMint = TokensToWei(ethRequiredToMint);
   
     return {
@@ -29,7 +29,7 @@ const createFigureConverterWith = (ethers: any) => {
   return {
     TokensToWei,
     WeiToTokens,
-    howMuchToMint
+    toCostByNumberOfMints
   }
 };
 

@@ -38,8 +38,8 @@ describe('NFT_POC...', () => {
   const {
     ethRequiredToMint,
     costToMint: specMintCost_0
-  } = convert.howMuchToMint({
-    mintQuantity: specMintQty_0,
+  } = convert.toCostByNumberOfMints({
+    numberOfMints: specMintQty_0,
     ethPerMint
   });
 
@@ -126,8 +126,8 @@ describe('NFT_POC...', () => {
         const {
           // ethRequiredToMint,
           costToMint: costToMintRemaining
-        } = convert.howMuchToMint({
-          mintQuantity: remaining,
+        } = convert.toCostByNumberOfMints({
+          numberOfMints: remaining,
           ethPerMint
         });
 
@@ -150,8 +150,8 @@ describe('NFT_POC...', () => {
         const {
           // ethRequiredToMint,
           costToMint: costToOverMint
-        } = convert.howMuchToMint({
-          mintQuantity: overMintQuantity,
+        } = convert.toCostByNumberOfMints({
+          numberOfMints: overMintQuantity,
           ethPerMint
         });
 
@@ -224,8 +224,8 @@ describe('NFT_POC...', () => {
     const {
       // ethRequiredToMint,
       costToMint: specMintCost_1
-    } = convert.howMuchToMint({
-      mintQuantity: specMintQty_1,
+    } = convert.toCostByNumberOfMints({
+      numberOfMints: specMintQty_1,
       ethPerMint
     });
    
