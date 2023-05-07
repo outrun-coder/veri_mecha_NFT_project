@@ -16,6 +16,7 @@ class NftMintingApp {
   
   isLoading = writable(true);
   isProcessing = writable(false);
+  hasAccountConnection = writable(false);
 
   provider: any
   contractNFT: any

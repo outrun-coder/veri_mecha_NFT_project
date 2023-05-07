@@ -11,16 +11,21 @@
   import MintsStaging from "./minting-interface/mints-staging.svelte";
   import ProcessingScreen from "components/display/processing-screen.svelte";
   import NftMinting from "services/nft-minting.app";
+  import ConnectionLanding from "./minting-interface/connection-landing.svelte";
 
   // console.log(`> SMOKE TEST NFT MINTING LOADED:`, NftMinting);
 
   // STATE
-  const { appIsWorking } = NftMinting;
+  const { appIsWorking, hasAccountConnection } = NftMinting;
 </script>
 
 <Card>
   <CardBody>
-    <MintsStaging/>
+    {#if $hasAccountConnection}
+      <MintsStaging/>
+    {:else}
+      <ConnectionLanding/>
+    {/if}
 
     {#if $appIsWorking}
       <ProcessingScreen/>
