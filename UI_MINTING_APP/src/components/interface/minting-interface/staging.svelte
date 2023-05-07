@@ -17,6 +17,12 @@
 
   const { appIsWorking } = NftMinting;
 
+  // ACTIONS
+  const resetErrors = () => {
+    hasError = false;
+    trxError = null;
+  };
+
   const addToBeMinted = () => {
     // console.log('> CHECK: toBeMinted:', toBeMinted.length);
     // console.log('> CHECK: mintsAreAvailable:', mintsAreAvailable, $nftTotalMintsLeft_);
@@ -30,12 +36,14 @@
     }
   };
 
-  export const removeLastToBeMinted = () => {
+  const removeLastToBeMinted = () => {
     toBeMinted.pop();
     toBeMinted = toBeMinted;
   };
 
-  export const mintX = async() => {
+  const mintX = async() => {
+    resetErrors();
+
     const count = toBeMinted.length;
     const result = await handleMintingWith(count);
 
@@ -95,10 +103,7 @@
     <Alert
       color="danger"
       isOpen={hasError}
-      toggle={() => {
-        hasError = false;
-        trxError = null;
-      }}>
+      toggle={resetErrors}>
         {#if trxError}
           {trxError.code} - {trxError.info.error.message}
         {/if}
