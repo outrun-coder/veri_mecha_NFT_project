@@ -19,7 +19,7 @@ class NftMintingApp {
   hasAccountConnection = writable(false);
 
   provider: any
-  contractNFT: any
+  uiNFTcontract: any
 
   nftCost_ = 0;
   nftName_ = '';
@@ -46,32 +46,24 @@ class NftMintingApp {
 
     // ! CONTRACT
     const { nft_VM } = networkConfigs[chainId];
-    this.contractNFT = new ethers.Contract(nft_VM.address, NFT_VM_ABI, this.provider);
-  }
-
-  setupUserConnection = async() => {
-    //@ts-ignore
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    const userAddress = ethers.getAddress(accounts[0]);
-
-    this.userAddress_.set(userAddress);
+    this.uiNFTcontract = new ethers.Contract(nft_VM.address, NFT_VM_ABI, this.provider);
   }
 
   setTotalMintsLeft = async() => {
-    this.nftTotalMintsLeft_.set(await this.contractNFT.xGroupTotalMintsLeft());
+    this.nftTotalMintsLeft_.set(await this.uiNFTcontract.xGroupTotalMintsLeft());
   }
 
   setNFTcontractData = async() => {
-    const { contractNFT } = this;
+    const { uiNFTcontract } = this;
     
-    this.nftCost_ = await contractNFT.xBaseCost();
-    this.nftName_ = await contractNFT.xName();
-    this.nftSymbol_ = await contractNFT.xSymbol();
-    this.nftMintOpenDate_ = await contractNFT.xGroupMintOpenDate();
+    this.nftCost_ = await uiNFTcontract.xBaseCost();
+    this.nftName_ = await uiNFTcontract.xName();
+    this.nftSymbol_ = await uiNFTcontract.xSymbol();
+    this.nftMintOpenDate_ = await uiNFTcontract.xGroupMintOpenDate();
     
     await this.setTotalMintsLeft();
 
-    this.nftBaseURI_.set(await contractNFT.xBaseURI()); // X
+    this.nftBaseURI_.set(await uiNFTcontract.xBaseURI()); // X
   }
 
   setupApplication = async() => {
@@ -88,9 +80,6 @@ class NftMintingApp {
 
     if (browser) {
       this.setupApplication();
-
-      // TODO [] - ADD CONNECT WALLET FEATURE from amm
-      // this.setupUserConnection();
     }
   }
 
@@ -136,7 +125,7 @@ class NftMintingApp {
   }
 
   processMintsBy = async(numberOfMints: number) => {
-    const { provider, contractNFT, convert, nftCost_ } = this;
+    const { provider, uiNFTcontract, convert, nftCost_ } = this;
 
     this.isProcessing.set(true);
 
@@ -151,7 +140,7 @@ class NftMintingApp {
       const signer = await provider.getSigner();
       // console.log('>> SIGNER:', signer.address);
 
-      trx = await contractNFT.connect(signer).andMintFor(numberOfMints, { value: costToMint });
+      trx = await uiNFTcontract.connect(signer).andMintFor(numberOfMints, { value: costToMint });
       await trx.wait();
 
       console.log(`>> MINT SUCCESS:`);
