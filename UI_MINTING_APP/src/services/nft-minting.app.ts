@@ -13,6 +13,9 @@ class NftMintingApp {
 
   store: any
   
+  isLoading = writable(true);
+  isProcessing = writable(false);
+
   provider: any
   contractNFT: any
 
@@ -52,7 +55,11 @@ class NftMintingApp {
     this.userAddress_.set(userAddress);
   }
 
-  setupNFTcontractData = async() => {
+  setTotalMintsLeft = async() => {
+    this.nftTotalMintsLeft_.set(await this.contractNFT.xGroupTotalMintsLeft());
+  }
+
+  setNFTcontractData = async() => {
     const { contractNFT } = this;
     
     this.nftName_.set(await contractNFT.xName());
@@ -66,7 +73,8 @@ class NftMintingApp {
 
   setupApplication = async() => {
     await this.setupNetworkConnections();
-    await this.setupNFTcontractData();
+    await this.setNFTcontractData();
+    this.isLoading.set(false);
   }
 
   constructor() {
@@ -82,6 +90,49 @@ class NftMintingApp {
       // this.setupUserConnection();
     }
   }
+
+  processMintsBy = async(numberOfMints: number) => {
+    const { provider, contractNFT, convert, nftCost_ } = this;
+
+    this.isProcessing.set(true);
+
+    const ethPerMint = convert.WeiToTokens(nftCost_);
+    const { costToMint } = convert.toCostByNumberOfMints({
+      numberOfMints,
+      ethPerMint
+    });
+
+    let trx;
+    try {
+      const signer = await provider.getSigner();
+      // console.log('>> SIGNER:', signer.address);
+
+      trx = await contractNFT.connect(signer).andMintFor(numberOfMints, { value: costToMint });
+      await trx.wait();
+
+      console.log(`>> MINT SUCCESS:`);
+      this.isProcessing.set(false);
+      return {
+        success: true,
+        error: null,
+        data: {
+          trx
+        }
+      };
+      
+    } catch(error) {
+      console.error('(!) ERROR MINTING (!)', error);
+      this.isProcessing.set(false);
+      return {
+        success: false,
+        error,
+        data: {
+          trx
+        }
+      };
+    }
+  }
+
 }
 
 const NftMinting = new NftMintingApp();

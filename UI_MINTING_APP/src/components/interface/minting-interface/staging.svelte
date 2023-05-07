@@ -1,16 +1,19 @@
 <script lang="ts">
-	import { Badge, Button, Card, CardBody, CardHeader, Spinner } from "sveltestrap";
-	import NftContainer from "../nft-container.svelte";
+	import { Alert, Badge, Button, Card, CardBody, CardFooter, CardHeader, Spinner } from "sveltestrap";
+
 	import NftBaseModel from "../../../spec-config/entities/nft-base";
-	import NftMinting from "services/nft-minting.app";
+	import NftContainer from "../nft-container.svelte";
+	import NftMinting, { appIsWorking } from "services/nft-minting.app";
   const { nftTotalMintsLeft_ } = NftMinting;
 
   export let handleMintingWith: any; // func
 
   // state
-  let isProcessing: boolean = false;
   let toBeMinted: Array<any> = [new NftBaseModel];
   $:mintsAreAvailable = (toBeMinted.length < $nftTotalMintsLeft_);
+
+  let hasError = false;
+  let trxError: any;
 
   export const addToBeMinted = () => {
     // console.log('> CHECK: toBeMinted:', toBeMinted.length);
@@ -31,12 +34,14 @@
   };
 
   export const mintX = async() => {
-    isProcessing = true;
-
     const count = toBeMinted.length;
-    await handleMintingWith(count);
+    const result = await handleMintingWith(count);
 
-    isProcessing = false;
+    if (!result.success) {
+      hasError = true;
+      trxError = result.error;
+    }
+    // SUCCESS OF MINT -> SHOULD DESTROY THIS COMPONENT
   };  
 </script>
 
@@ -65,8 +70,8 @@
       <Badge pill color="primary">Left to mint: {$nftTotalMintsLeft_}</Badge>
     </div>
   </CardHeader>
-  <CardBody>
 
+  <CardBody>
     <div class="staging-list">
       {#each toBeMinted as PH}
         <NftContainer tokenDetails={PH}/>
@@ -75,14 +80,28 @@
 
     <Button
       on:click={mintX}
-      disabled={isProcessing}>
-        {#if isProcessing}
+      disabled={$appIsWorking}>
+        {#if $appIsWorking}
           Processing... <Spinner color="light" size="sm"/>
         {:else}
           Mint Mecha
         {/if}
     </Button>
   </CardBody>
+
+  <CardFooter>
+    <Alert
+      color="danger"
+      isOpen={hasError}
+      toggle={() => {
+        hasError = false;
+        trxError = null;
+      }}>
+        {#if trxError}
+          {trxError.code} - {trxError.info.error.message}
+        {/if}
+    </Alert>
+  </CardFooter>
 </Card>
 
 <style>
