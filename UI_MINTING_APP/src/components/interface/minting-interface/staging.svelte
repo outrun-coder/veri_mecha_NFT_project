@@ -3,19 +3,21 @@
 
 	import NftBaseModel from "../../../spec-config/entities/nft-base";
 	import NftContainer from "../nft-container.svelte";
-	import NftMinting, { appIsWorking } from "services/nft-minting.app";
+	import NftMinting from "services/nft-minting.app";
   const { nftTotalMintsLeft_ } = NftMinting;
 
   export let handleMintingWith: any; // func
 
-  // state
+  // STATE
   let toBeMinted: Array<any> = [new NftBaseModel];
   $:mintsAreAvailable = (toBeMinted.length < $nftTotalMintsLeft_);
 
   let hasError = false;
   let trxError: any;
 
-  export const addToBeMinted = () => {
+  const { appIsWorking } = NftMinting;
+
+  const addToBeMinted = () => {
     // console.log('> CHECK: toBeMinted:', toBeMinted.length);
     // console.log('> CHECK: mintsAreAvailable:', mintsAreAvailable, $nftTotalMintsLeft_);
     if (mintsAreAvailable) {

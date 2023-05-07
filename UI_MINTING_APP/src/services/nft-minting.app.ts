@@ -133,10 +133,15 @@ class NftMintingApp {
     }
   }
 
+  // STATE WATCHING
+  appIsWorking = derived([this.isLoading, this.isProcessing], ([$isLoading, $isProcessing]) => {
+    return $isLoading || $isProcessing;
+  });
 }
 
 const NftMinting = new NftMintingApp();
 
+// ABSTRACTION HELPERS
 export const shortAddress = derived(NftMinting.userAddress_, ($userAddress_) => {
   //@ts-ignore
   return ($userAddress_) ? `${$userAddress_.slice(0,5)}...${$userAddress_.slice(38,42)}` : 'N/A';

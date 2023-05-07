@@ -8,14 +8,18 @@
   // })
   import { Card, CardBody } from "sveltestrap";
   
-  import NftMinting, { appIsWorking } from "services/nft-minting.app";
   import Staging from "./minting-interface/staging.svelte";
   import ProcessingScreen from "components/display/processing-screen.svelte";
+  import NftMinting from "services/nft-minting.app";
 
   // console.log(`> SMOKE TEST NFT MINTING LOADED:`, NftMinting);
 
+  // STATE
   // let displaySuccessfulMints: boolean = true;
 
+  const { appIsWorking } = NftMinting;
+
+  // ACTIONS
   const handleMintingWith = async(requestedCount: number) => {
     const result = await NftMinting.processMintsBy(requestedCount);
 
