@@ -20,15 +20,15 @@ class NftMintingApp {
   contractNFT: any
 
   nftCost_ = 0;
-
-  nftName_: any = writable('');
-  nftSymbol_: any = writable();
-  nftBaseURI_: any = writable();
-  nftMintOpenDate_: any = writable();
+  nftName_ = '';
+  nftSymbol_ = '';
+  nftMintOpenDate_ = 0;
+  
   nftTotalMintsLeft_: any = writable();
+  nftBaseURI_: any = writable(); // X
 
-  network_: any = writable({});
-  chanId_: any = writable('');
+  // network_: any = {};
+  chanId_: any = '';
 
   userAddress_: any = writable(null); // ''
 
@@ -39,12 +39,12 @@ class NftMintingApp {
     const network = await this.provider.getNetwork();
     const chainId = network.chainId.toString();
 
+    // this.network_ = network;
+    this.chanId_ = chainId;
+
     // ! CONTRACT
     const { nft_VM } = networkConfigs[chainId];
     this.contractNFT = new ethers.Contract(nft_VM.address, NFT_VM_ABI, this.provider);
-
-    this.network_.set(network);
-    this.chanId_.set(chainId);
   }
 
   setupUserConnection = async() => {
@@ -62,13 +62,14 @@ class NftMintingApp {
   setNFTcontractData = async() => {
     const { contractNFT } = this;
     
-    this.nftName_.set(await contractNFT.xName());
-    this.nftSymbol_.set(await contractNFT.xSymbol());
     this.nftCost_ = await contractNFT.xBaseCost();
+    this.nftName_ = await contractNFT.xName();
+    this.nftSymbol_ = await contractNFT.xSymbol();
+    this.nftMintOpenDate_ = await contractNFT.xGroupMintOpenDate();
     
-    this.nftMintOpenDate_.set(await contractNFT.xGroupMintOpenDate());
-    this.nftBaseURI_.set(await contractNFT.xBaseURI());
     await this.setTotalMintsLeft();
+
+    this.nftBaseURI_.set(await contractNFT.xBaseURI()); // X
   }
 
   setupApplication = async() => {

@@ -23,12 +23,14 @@
 
 	<Card>
 		<CardBody>
-			<Badge color="primary">{$nftName_}</Badge>
-			<Badge color="primary">{$nftSymbol_}</Badge>
-			<Badge color="primary">{$nftCost_}</Badge>
-			<Badge color="primary">{$nftBaseURI_}</Badge>
-			<Badge color="primary">{$nftMintOpenDate_}</Badge>
+			<Badge color="primary">{nftCost_}</Badge>
+			<Badge color="primary">{nftName_}</Badge>
+			<Badge color="primary">{nftSymbol_}</Badge>
+			<Badge color="primary">{nftMintOpenDate_}</Badge>
 			<Badge color="primary">{$nftTotalMintsLeft_}</Badge>
+			
+			<!-- X -->
+			<Badge color="primary">{$nftBaseURI_}</Badge>
 		</CardBody>
 	</Card>
 
