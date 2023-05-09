@@ -12,7 +12,7 @@ const createNFTcontractConfigWith = (convert: any) => {
     //
     // _baseTokenStagedURI: '',
     // _baseTokenPendingURI: '',
-    _baseTokenURI: 'asdf'
+    _baseTokenURI: 'QmaSz2dzXtVFYgjQ5AkzjHQcqPtRkXVFD8DKHMVGWyDJRX'
   };
   
   const FIRST_SEASON_CONFIG = {
