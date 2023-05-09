@@ -2,7 +2,7 @@ export const targetContractKey = 'NFT_POC';
 export const ethPerMint = 0.005; // RESEARCH - RELATIVE PROJECT MINTING COSTS
 
 // TEST SPEC ONLY
-export const overMintQuantity = 12;
+export const overMintQuantity = 48;
 
 const createNFTcontractConfigWith = (convert: any) => {
   const BASE_DEPLOYMENT_PROPS = {
@@ -12,13 +12,13 @@ const createNFTcontractConfigWith = (convert: any) => {
     //
     // _baseTokenStagedURI: '',
     // _baseTokenPendingURI: '',
-    _baseTokenURI: 'QmaSz2dzXtVFYgjQ5AkzjHQcqPtRkXVFD8DKHMVGWyDJRX'
+    _baseTokenURI: 'QmNQ5JmdAjFBCkjrjw2F9Z1PZ94aCAPHQ4HH7mmqRAM8QM'
   };
   
   const FIRST_SEASON_CONFIG = {
     // _groupId: '0000',
     _groupMintingDate: (Date.now()).toString().slice(0, 10), // now
-    _groupTotalMintsLeft: 10
+    _groupTotalMintsLeft: 45
   }
   
   const nftConfig = {
