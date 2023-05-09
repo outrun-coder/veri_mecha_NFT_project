@@ -4,13 +4,35 @@
 </svelte:head>
 
 <script lang="ts">
-	import { Button } from 'sveltestrap';
+	import { Badge, Card, CardBody } from 'sveltestrap';
+	
+	import NftMinting from 'services/nft-minting.app';
+
+	const {
+		nftName_,
+		nftSymbol_,
+		nftCost_,
+		nftBaseURI_,
+		nftMintOpenDate_,
+		nftTotalMintsLeft_
+	} = NftMinting
 </script>
 
 <div class="text-column">
 	<h1>About this app</h1>
 
-	<Button>TESTING</Button>
+	<Card>
+		<CardBody>
+			<Badge color="primary">{nftCost_}</Badge>
+			<Badge color="primary">{nftName_}</Badge>
+			<Badge color="primary">{nftSymbol_}</Badge>
+			<Badge color="primary">{nftMintOpenDate_}</Badge>
+			<Badge color="primary">{$nftTotalMintsLeft_}</Badge>
+			
+			<!-- X -->
+			<Badge color="primary">{$nftBaseURI_}</Badge>
+		</CardBody>
+	</Card>
 
 	<p>
 		This is a <a href="https://kit.svelte.dev">SvelteKit</a> app. You can make your own by typing the

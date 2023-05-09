@@ -1,7 +1,9 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
 	import logo from '$lib/images/svelte-logo.svg';
 	import github from '$lib/images/github.svg';
+
+	import { shortAddress } from 'services/nft-minting.app';
 </script>
 
 <header>
@@ -40,7 +42,7 @@
 	<div class="corner">
 		<!-- TODO - link that opens MetaMask -->
 		<div class="wallet-hud">
-			Truncated wallet address here ...
+			Pilot: {$shortAddress}
 		</div>
 	</div>
 </header>
@@ -48,10 +50,10 @@
 <style>
 	.wallet-hud {
 		position: absolute;
-		width: 400px;
+		text-align: right;
+		width: 200px;
 		right: 0px;
 		padding: 15px;
-		border: 1px solid red;
 	}
 
 	header {

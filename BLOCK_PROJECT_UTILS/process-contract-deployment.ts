@@ -1,14 +1,21 @@
 
 const generateContract = async(args: any) => {
-    const {
-      ethers,
-      targetContractKey,
-      contractConfig
-    } = args;
-      const contractFactory = await ethers.getContractFactory(targetContractKey);
-      const contract = await contractFactory.deploy(contractConfig);
+  const {
+    verbose,
+    ethers,
+    targetContractKey,
+    contractConfig
+  } = args;
 
-      return contract;
+  if (verbose) {
+    console.log(`>> DEPLOY CONTRACT: ${targetContractKey} \n with configuration:`);
+    console.table(contractConfig);
+  }
+
+  const contractFactory = await ethers.getContractFactory(targetContractKey);
+  const contract = await contractFactory.deploy(contractConfig);
+
+  return contract;
 }
 
 export default generateContract;

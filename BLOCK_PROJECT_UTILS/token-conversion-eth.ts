@@ -1,8 +1,17 @@
 const createFigureConverterWith = (ethers: any) => {
-  const { utils: {
-    parseUnits,
-    formatEther
-  } } = ethers;
+  let
+  parseUnits: any, // func
+  formatEther: any; // func
+
+  if (ethers.utils) {
+    // v5
+    parseUnits = ethers.utils.parseUnits;
+    formatEther = ethers.utils.formatEther;
+  } else {
+    // v6 no util level
+    parseUnits = ethers.parseUnits;
+    formatEther = ethers.formatEther;
+  }
 
   const TokensToWei = (amount: any) => { // number || string
     // 1 => 1000000000000000000
@@ -14,10 +23,10 @@ const createFigureConverterWith = (ethers: any) => {
     return formatEther(bigNumber);
   }
 
-  const howMuchToMint = (args: any) => {
-    const { mintQuantity, ethPerMint } = args;
+  const toCostByNumberOfMints = (args: any) => {
+    const { numberOfMints, ethPerMint } = args;
   
-    const ethRequiredToMint = mintQuantity * ethPerMint;
+    const ethRequiredToMint = numberOfMints * ethPerMint;
     const costToMint = TokensToWei(ethRequiredToMint);
   
     return {
@@ -29,7 +38,7 @@ const createFigureConverterWith = (ethers: any) => {
   return {
     TokensToWei,
     WeiToTokens,
-    howMuchToMint
+    toCostByNumberOfMints
   }
 };
 

@@ -12,7 +12,7 @@ import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { createFigureConverterWith, processContractDeployment } from "block-project-utils";
 
 // - CONFIG
-import createNFTcontractConfigWith, { targetContractKey, ethPerMint } from '../config/deployment/contract-nft';
+import createNFTcontractConfigWith, { targetContractKey, ethPerMint, overMintQuantity } from '../config/deployment/contract-nft';
 
 const convert = createFigureConverterWith(ethers);
 const nftConfig = createNFTcontractConfigWith(convert);
@@ -38,8 +38,8 @@ describe('NFT_POC...', () => {
   const {
     ethRequiredToMint,
     costToMint: specMintCost_0
-  } = convert.howMuchToMint({
-    mintQuantity: specMintQty_0,
+  } = convert.toCostByNumberOfMints({
+    numberOfMints: specMintQty_0,
     ethPerMint
   });
 
@@ -104,7 +104,7 @@ describe('NFT_POC...', () => {
     });
 
     describe(`- will be graceful if...`, () => {
-      const lowBall = convert.TokensToWei(1);
+      const lowBall = convert.TokensToWei(.0025);
 
       it(`it rejects insufficient mint payment of: ${convert.WeiToTokens(lowBall)}`, async() => {
         const underFundedMint = nftContract.connect(minter_1).andMintFor(specMintQty_0, { value: lowBall });
@@ -126,8 +126,8 @@ describe('NFT_POC...', () => {
         const {
           // ethRequiredToMint,
           costToMint: costToMintRemaining
-        } = convert.howMuchToMint({
-          mintQuantity: remaining,
+        } = convert.toCostByNumberOfMints({
+          numberOfMints: remaining,
           ethPerMint
         });
 
@@ -146,12 +146,11 @@ describe('NFT_POC...', () => {
       });
 
       it('it does not allow more NFTs to be minted than GROUP_TOTAL_MINTS_LEFT', async () => {
-        const overMintQuantity = 6;
         const {
           // ethRequiredToMint,
           costToMint: costToOverMint
-        } = convert.howMuchToMint({
-          mintQuantity: overMintQuantity,
+        } = convert.toCostByNumberOfMints({
+          numberOfMints: overMintQuantity,
           ethPerMint
         });
 
@@ -224,8 +223,8 @@ describe('NFT_POC...', () => {
     const {
       // ethRequiredToMint,
       costToMint: specMintCost_1
-    } = convert.howMuchToMint({
-      mintQuantity: specMintQty_1,
+    } = convert.toCostByNumberOfMints({
+      numberOfMints: specMintQty_1,
       ethPerMint
     });
    
@@ -240,16 +239,16 @@ describe('NFT_POC...', () => {
 
     describe(`- will be successful if...`, () => {
       it(`it returns all ${specMintQty_1} NFTs owner minted`, async() => {
-        const assetCollection = await nftContract.getAssetCollectionByOwner(minter_1Address);
+        const tokenCollection = await nftContract.getTokenCollectionWith(minter_1Address);
 
-        // console.log('>> ASSETS:', assetCollection);
+        // console.log('>> ASSETS:', tokenCollection);
         
-        expect(assetCollection.length).to.equal(specMintQty_1);
-        expect(assetCollection[0].toString()).of.equal('1');
-        expect(assetCollection[1].toString()).of.equal('2');
-        expect(assetCollection[2].toString()).of.equal('3');
-        expect(assetCollection[3].toString()).of.equal('4');
-        expect(assetCollection[4].toString()).of.equal('5');
+        expect(tokenCollection.length).to.equal(specMintQty_1);
+        expect(tokenCollection[0].toString()).of.equal('1');
+        expect(tokenCollection[1].toString()).of.equal('2');
+        expect(tokenCollection[2].toString()).of.equal('3');
+        expect(tokenCollection[3].toString()).of.equal('4');
+        expect(tokenCollection[4].toString()).of.equal('5');
       });
             
       it(`it returns IPFS URI ${targetURI} for spec tokenId: ${targetTokenId}`, async() => {
