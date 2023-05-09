@@ -1,17 +1,12 @@
 {
     "layers": [
-        "Backgrounds",
-        "Face",
-        "Hats and Hair",
-        "Eyes and Glasses",
-        "Nose",
-        "Mouth"
+        "Backgrounds"
     ],
-    "image_description": "Open Punks",
-    "image_count": 25,
+    "image_description": "VERI_MECHS_S1_POC",
+    "image_count": 45,
     "image_details": {
         "width": 512,
         "height": 512
     },
-    "image_location": "ipfs://QmNN9ATnagEMrC9V5Up9c8KUrZGDiCBQVS58x3ojktg2Lt"
+    "image_location": "ipfs://QmcAt1GQ4gegCDLse4cBnMKBNmwCHTYm49e7sm3jcgWf1N"
 }
