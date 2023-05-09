@@ -229,6 +229,7 @@ class NftMintingApp {
     }
   }
 
+  // TODO [] - getResourcesForToken()
 }
 
 // START - SINGLETON
