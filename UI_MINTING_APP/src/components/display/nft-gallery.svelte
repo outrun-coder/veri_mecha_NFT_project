@@ -70,7 +70,7 @@
         <div class="asset-details">
           <h2>Asset Details go here</h2>
 
-          <div class="asdf">
+          <div class="inspection-controls">
             <Button color="primary">Activate Mech!</Button>
             <Button color="danger">Repair</Button>
             <Button color="warning">Garage</Button>
@@ -81,10 +81,11 @@
 </Modal>
 
 <style>
-  .asdf {
+  .inspection-controls {
     display: flex;
     flex-direction: column;
   }
+
   .gallery-container {
     display: flex;
     flex-wrap: wrap;
