@@ -1,7 +1,7 @@
 <script lang="ts">
 	import NftMinting from "services/nft-minting.app";
 	import NftBaseModel from "../../spec-config/entities/nft-base";
-	import { Button, Card, CardBody, Modal, ModalBody, ModalHeader, NavLink } from "sveltestrap";
+	import { Badge, Button, Card, CardBody, Modal, ModalBody, ModalHeader, NavLink } from "sveltestrap";
 	import ConnectionLanding from "components/interface/minting-interface/connection-landing.svelte";
 	import ProcessingScreen from "./processing-screen.svelte";
 	import NftContainer from "components/interface/nft-container.svelte";
@@ -32,7 +32,9 @@
 <Card class="mb-3">
   <CardBody class="text-center">
     {#if $userOptedToConnect}
-      <h2>NFT Gallery</h2>
+      <h2>
+        Has <Badge pill>{mechs.length}</Badge> Mech{(mechs.length > 1) ? 's': ''}
+      </h2>
 
       <div class="gallery-container">
         {#each mechs as mech}

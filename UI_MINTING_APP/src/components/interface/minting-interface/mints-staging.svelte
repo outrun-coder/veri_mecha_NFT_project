@@ -34,12 +34,12 @@
 
   const addToBeMinted = () => {
     resetStaging();
-    console.log('> CHECK: toBeMinted:', toBeMinted.length);
-    console.log('> CHECK: mintsAreAvailable:', mintsAreAvailable, $nftTotalMintsLeft_);
+    // console.log('> CHECK: toBeMinted:', toBeMinted.length);
+    // console.log('> CHECK: mintsAreAvailable:', mintsAreAvailable, $nftTotalMintsLeft_);
     if (mintsAreAvailable) {
       // ADD ONE
       toBeMinted = [...toBeMinted, new NftBaseModel(0)];
-      console.log('>> TO_MINT_STAGE:', toBeMinted);
+      // console.log('>> TO_MINT_STAGE:', toBeMinted);
     } else {
       // NO MORE
       console.warn(`Mint cap reached! - only ${$nftTotalMintsLeft_} are available.`);
@@ -105,6 +105,7 @@
           {/if}
         </div>
 
+        <Badge pill color="danger">{toBeMinted.length} mech{(toBeMinted.length > 1) ? 's': ''} will be minted</Badge>
         <Badge pill color="primary">Left to mint: {$nftTotalMintsLeft_}</Badge>
       </div>
     {/if}

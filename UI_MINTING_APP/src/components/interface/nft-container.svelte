@@ -2,7 +2,7 @@
 	import { Card } from "sveltestrap";
 
   export let tokenDetails: any;
-  export let toggleAction: any;
+  export let toggleAction: any = null;
 
   if(tokenDetails.tokenId === '1') {
     console.log('>> TOKEN_DETAILS:', tokenDetails);
