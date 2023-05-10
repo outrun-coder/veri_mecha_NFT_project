@@ -2,6 +2,7 @@
 	import { Card } from "sveltestrap";
 
   export let tokenDetails: any;
+  export let toggleAction: any;
 
   if(tokenDetails.tokenId === '1') {
     console.log('>> TOKEN_DETAILS:', tokenDetails);
@@ -12,11 +13,13 @@
 
 <div class="nft-container">
   <Card>
-    <div class="nft-image">
-      <img
-        alt=""
-        src="https://ipfs.io/ipfs/Qmd6rTvU5bSNPBfxwriuD3amCbs653tSo19pPvkUdQRBRy/{tokenId}.png"/>
-    </div>
+    <button on:click={toggleAction(tokenId)}>
+      <div class="nft-image">
+        <img
+          alt=""
+          src="https://ipfs.io/ipfs/Qmd6rTvU5bSNPBfxwriuD3amCbs653tSo19pPvkUdQRBRy/{tokenId}.png"/>
+      </div>
+    </button>
   </Card>
 </div>
 
