@@ -39,7 +39,7 @@ class NftMintingApp {
 
   // USER / ACCOUNT(S)
   userAddress_: any = writable(null); // ''
-  // TODO - ADD COLLECTION
+  userCollection_ = writable([]); // Array<any>
   // TODO - ETH BALANCE VERIFICATION
 
   // STATE WATCHING
@@ -150,14 +150,20 @@ class NftMintingApp {
     return userAddress;
   }
 
-  loadTokenCollection = async(args: any) => {
+  loadTokenCollectionFor = async(args: any) => {
     const { userAddress } = args;
     const { uiNFTcontract } = this;
     const tokenCollection = await uiNFTcontract.getTokenCollectionWith(userAddress);
 
-    // TODO - SET AND READ IN GALLERY
+    this.userCollection_.set(tokenCollection);
 
     return tokenCollection;
+  }
+
+  reloadTokenCollection = async() => {
+    let userAddress;
+    this.userAddress_.subscribe((address:string) => userAddress=address);
+    this.loadTokenCollectionFor({userAddress});
   }
 
   connectUserAccount = async() => {
@@ -166,9 +172,7 @@ class NftMintingApp {
     const userAddress = await this.collectAccount();
     
     // TODO - loadETHBalances
-    const tokenCollection = await this.loadTokenCollection({
-      userAddress
-    });
+    const tokenCollection = await this.loadTokenCollectionFor({userAddress});
     
     this.isLoading.set(false);
 
@@ -178,7 +182,7 @@ class NftMintingApp {
     }
 
     // TODO - IF VERBOSE TESTING
-    checkNFTaccountDetailsFrom(result);
+    // checkNFTaccountDetailsFrom(result);
 
     return result;
   }

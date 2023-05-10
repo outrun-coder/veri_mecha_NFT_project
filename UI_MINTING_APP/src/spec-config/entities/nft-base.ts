@@ -1,5 +1,9 @@
 class NftBaseModel {
-  // constructor() {}
+  constructor(token: any) {
+    this.tokenId = token.toString();
+  }
+  minted = false
+  tokenId = 0
   name = 'test'
   type = 'test'
   class = 'test'

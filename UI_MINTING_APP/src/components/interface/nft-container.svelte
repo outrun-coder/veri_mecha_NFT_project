@@ -2,22 +2,37 @@
 	import { Card } from "sveltestrap";
 
   export let tokenDetails: any;
+
+  if(tokenDetails.tokenId === '1') {
+    console.log('>> TOKEN_DETAILS:', tokenDetails);
+  }
+  
+  const { tokenId } = tokenDetails;
 </script>
 
 <div class="nft-container">
   <Card>
-    <div class="nft-image"></div>
+    <div class="nft-image">
+      <img
+        alt=""
+        src="https://ipfs.io/ipfs/Qmd6rTvU5bSNPBfxwriuD3amCbs653tSo19pPvkUdQRBRy/{tokenId}.png"/>
+    </div>
   </Card>
 </div>
 
 <style>
   .nft-container {
-    width: 170px;
+    width: 180px;
     margin: 5px;
   }
 
   .nft-image {
     border: 1px solid rgb(240, 240, 240);
-    height: 175px;
+    height: 180px;
+  }
+
+  .nft-image img {
+    width: 100%;
+    height: 100%;
   }
 </style>
