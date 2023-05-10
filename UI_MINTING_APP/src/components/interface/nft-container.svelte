@@ -13,13 +13,21 @@
 
 <div class="nft-container">
   <Card>
-    <button on:click={toggleAction(tokenId)}>
+    {#if !toggleAction}
       <div class="nft-image">
         <img
           alt=""
           src="https://ipfs.io/ipfs/Qmd6rTvU5bSNPBfxwriuD3amCbs653tSo19pPvkUdQRBRy/{tokenId}.png"/>
       </div>
-    </button>
+    {:else}
+      <button on:click={toggleAction(tokenId)}>
+        <div class="nft-image">
+          <img
+            alt=""
+            src="https://ipfs.io/ipfs/Qmd6rTvU5bSNPBfxwriuD3amCbs653tSo19pPvkUdQRBRy/{tokenId}.png"/>
+        </div>
+      </button>
+    {/if}
   </Card>
 </div>
 
