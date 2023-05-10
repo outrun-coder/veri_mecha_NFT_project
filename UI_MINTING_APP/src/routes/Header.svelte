@@ -8,8 +8,11 @@
 
 <header>
 	<div class="corner">
-		<a href="https://kit.svelte.dev">
+		<a href="https://kit.svelte.dev" target="_blank">
 			<img src={logo} alt="SvelteKit" />
+		</a>
+		<a href="https://github.com/sveltejs/kit" target="_blank">
+			<img src={github} alt="GitHub" />
 		</a>
 	</div>
 
@@ -64,6 +67,8 @@
 	.corner {
 		width: 3em;
 		height: 3em;
+		display: flex;
+		flex-direction: row;
 	}
 
 	.corner a {
