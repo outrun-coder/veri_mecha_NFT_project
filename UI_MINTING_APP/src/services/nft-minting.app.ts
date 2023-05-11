@@ -182,7 +182,7 @@ class NftMintingApp {
     }
 
     // TODO - IF VERBOSE TESTING
-    // checkNFTaccountDetailsFrom(result);
+    checkNFTaccountDetailsFrom(result);
 
     return result;
   }
