@@ -251,7 +251,7 @@
         "type": "uint256"
       }
     ],
-    "name": "getTokenURI",
+    "name": "getTokenMetaURI",
     "outputs": [
       {
         "internalType": "string",

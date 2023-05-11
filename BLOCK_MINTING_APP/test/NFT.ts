@@ -252,7 +252,7 @@ describe('NFT_POC...', () => {
       });
             
       it(`it returns IPFS URI ${targetURI} for spec tokenId: ${targetTokenId}`, async() => {
-        expect(await nftContract.getTokenURI(targetTokenId)).to.equal(targetURI);
+        expect(await nftContract.getTokenMetaURI(targetTokenId)).to.equal(targetURI);
       });
       
       it(`it returns the address of the owner for tokenId: ${targetTokenId}`, async () => {
@@ -264,7 +264,7 @@ describe('NFT_POC...', () => {
       });
 
       it(`it rejects match of invalid tokenId: ${crazyHighTokenId} for TOKEN_URI`, async() => {
-        const badURIRequest = nftContract.getTokenURI(crazyHighTokenId);
+        const badURIRequest = nftContract.getTokenMetaURI(crazyHighTokenId);
         // NOTE - SWAP COMMENTED LINES TO SEE CONTRACT EXCEPTION
         await expect(badURIRequest).to.be.reverted;
         // await badURIRequest;

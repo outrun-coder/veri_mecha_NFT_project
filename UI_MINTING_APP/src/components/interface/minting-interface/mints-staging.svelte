@@ -7,7 +7,7 @@
   const { nftTotalMintsLeft_ } = NftMinting;
 
   // STATE
-  let toBeMinted: Array<any> = [new NftBaseModel];
+  let toBeMinted: Array<any> = [new NftBaseModel(0)];
   $:mintsAreAvailable = (toBeMinted.length < $nftTotalMintsLeft_);
 
   let hasError = false;
@@ -16,7 +16,7 @@
   let mintIsSuccessful = false;
   let trxHash: string;
 
-  const { appIsWorking, mintGroupIsExhausted } = NftMinting;
+  const { appIsWorking, mintGroupIsExhausted, reloadTokenCollection } = NftMinting;
 
   // ACTIONS
   const resetStaging = async(args: any={startOver: false}) => {
@@ -27,7 +27,7 @@
     mintIsSuccessful = false;
 
     if (startOver) {
-      toBeMinted = [new NftBaseModel];
+      toBeMinted = [new NftBaseModel(0)];
       trxHash = '';
     }
   };
@@ -38,7 +38,7 @@
     // console.log('> CHECK: mintsAreAvailable:', mintsAreAvailable, $nftTotalMintsLeft_);
     if (mintsAreAvailable) {
       // ADD ONE
-      toBeMinted = [...toBeMinted, new NftBaseModel];
+      toBeMinted = [...toBeMinted, new NftBaseModel(0)];
       // console.log('>> TO_MINT_STAGE:', toBeMinted);
     } else {
       // NO MORE
@@ -105,6 +105,7 @@
           {/if}
         </div>
 
+        <Badge pill color="danger">{toBeMinted.length} mech{(toBeMinted.length > 1) ? 's': ''} will be minted</Badge>
         <Badge pill color="primary">Left to mint: {$nftTotalMintsLeft_}</Badge>
       </div>
     {/if}
@@ -115,13 +116,13 @@
       <div class="mint-group-closed status-display">
         <span>All Mechs have been deployed!</span>
         <NavLink href="/garage-gallery">
-          <Button>Report to the hanger!</Button>
+          <Button on:click={reloadTokenCollection}>Report to the hanger!</Button>
         </NavLink>
         </div>
     {:else if mintIsSuccessful}
       <div class="mint-confirmation status-display">
         <NavLink href="/garage-gallery">
-          <Button>Report to the hanger!</Button>
+          <Button on:click={reloadTokenCollection}>Report to the hanger!</Button>
         </NavLink>
         <span>or RESTART</span>
       </div>

@@ -12,7 +12,7 @@
 
     optedIn = true;
 
-    await delay(2500);
+    await delay(1500);
     userOptedToConnect.set(true);
   }
 

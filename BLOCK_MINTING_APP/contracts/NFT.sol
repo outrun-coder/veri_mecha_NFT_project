@@ -122,7 +122,7 @@ contract NFT_POC is ERC721Enumerable, Ownable {
 
   // returns metadata IPFS url
   // example: 'ipfs://QmQ2jnDYecFhrf3asEWjyjZRX1pZSsNWG3qHzmNDvXa9qg/1.json'
-  function getTokenURI(uint256 _tokenId)
+  function getTokenMetaURI(uint256 _tokenId)
     public
     view
     virtual

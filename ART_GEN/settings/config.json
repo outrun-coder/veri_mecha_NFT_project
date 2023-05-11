@@ -1,0 +1,12 @@
+{
+    "layers": [
+        "Backgrounds"
+    ],
+    "image_description": "VERI_MECHS_S1_POC",
+    "image_count": 45,
+    "image_details": {
+        "width": 512,
+        "height": 512
+    },
+    "image_location": "ipfs://Qmd6rTvU5bSNPBfxwriuD3amCbs653tSo19pPvkUdQRBRy"
+}

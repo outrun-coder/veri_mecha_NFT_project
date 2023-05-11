@@ -16,7 +16,7 @@
   // console.log(`> SMOKE TEST NFT MINTING LOADED:`, NftMinting);
 
   // STATE
-  const { appIsWorking, userOptedToConnect } = NftMinting;
+  const { userOptedToConnect, appIsWorking } = NftMinting;
 </script>
 
 <Card>
