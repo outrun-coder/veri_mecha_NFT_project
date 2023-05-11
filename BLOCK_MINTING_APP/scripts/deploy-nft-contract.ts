@@ -5,10 +5,10 @@ const { ethers } = hre;
 import { createFigureConverterWith, processContractDeployment } from "block-project-utils";
 
 // - CONFIG
-import createNFTcontractConfigWith, { targetContractKey } from '../config/deployment/contract-nft';
+import { targetContractKey, devConfigFactory } from '../config/deployment/nft-poc-config-factory';
 
 const convert = createFigureConverterWith(ethers);
-const nftConfig = createNFTcontractConfigWith(convert);
+const nftConfig = devConfigFactory({ convert });
 
 async function main() {
   const nftContract = await processContractDeployment({
