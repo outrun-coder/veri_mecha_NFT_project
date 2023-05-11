@@ -1,3 +1,7 @@
+### TEST TRXs
+- 05/11/23 Minted 3 => 0x18f1498b050f60412332f27a853158fdf6b00e0ff263bdbef56b83d96c127819
+- https://goerli.etherscan.io/tx/0x18f1498b050f60412332f27a853158fdf6b00e0ff263bdbef56b83d96c127819
+
 # create-svelte
 
 ## issues

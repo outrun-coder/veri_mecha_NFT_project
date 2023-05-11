@@ -12,10 +12,11 @@ import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { createFigureConverterWith, processContractDeployment } from "block-project-utils";
 
 // - CONFIG
-import createNFTcontractConfigWith, { targetContractKey, ethPerMint, overMintQuantity } from '../config/deployment/contract-nft';
+import { targetContractKey, devTestSpec, devConfigFactory } from '../config/deployment/nft-poc-config-factory';
 
+const { ethPerMint, overMintQuantity } = devTestSpec;
 const convert = createFigureConverterWith(ethers);
-const nftConfig = createNFTcontractConfigWith(convert);
+const nftConfig = devConfigFactory({ convert });
 
 // CONTRACT TEST SUITE
 describe('NFT_POC...', () => {

@@ -6,6 +6,7 @@
     "test:all-contracts": "npx hardhat test",
     "test:target-contract": "sh ../BLOCK_PROJECT_UTILS/shell-scripts/test-contract.sh",
     "process-local:target-script": "sh ../BLOCK_PROJECT_UTILS/shell-scripts/process-local-script.sh",
+    "process-test-net:target-script": "sh ../BLOCK_PROJECT_UTILS/shell-scripts/process-test-net-script.sh",
     "start-local:hardhat-node": "npx hardhat node"
   },
   "devDependencies": {
